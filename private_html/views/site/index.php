@@ -4,4 +4,7 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<h1>
+    Piezonuclear Science
+    </h1>
+  a new way for a  new Physics
