@@ -10,14 +10,14 @@ class m130613_172302_create_journal_table extends CDbMigration
             'url' => 'string',
             'description' => 'text'
         ));
-        echo "Table 'journals' is created successfully.";
+        echo "Table 'journals' is created successfully.\n";
         return true;
     }
 
     public function down()
     {
         $this->dropTable('journals');
-        echo "Table 'journals' is deleted successfully.";
+        echo "Table 'journals' is deleted successfully.\n";
         return true;
     }
 

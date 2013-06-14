@@ -8,13 +8,14 @@ class m130613_190013_create_keyword_table extends CDbMigration
             'id' => 'pk',
             'name' => 'string NOT NULL',
         ));
-        echo "Table 'keywords' is created successfully.";
+        echo "Table 'keywords' is created successfully.\n";
         return true;
     }
 
     public function down()
     {
-        echo "Table 'keywords' is deleted successfully.";
+        $this->dropTable('keywords');
+        echo "Table 'keywords' is deleted successfully.\n";
         return true;
     }
 

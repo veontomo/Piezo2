@@ -14,7 +14,7 @@ class m130613_172542_create_article_table extends CDbMigration
             'journal' => 'int'
         ));
         $this->addForeignKey('reference_to_journal','articles','journal','journals','id','RESTRICT','CASCADE');
-        echo "Table 'articles' is created successfully.";
+        echo "Table 'articles' is created successfully.\n";
         return true;
     }
 
@@ -22,7 +22,7 @@ class m130613_172542_create_article_table extends CDbMigration
     {
         $this->dropForeignKey('reference_to_journal','articles');
         $this->dropTable('articles');
-        echo "Table 'articles' is deleted successfully.";
+        echo "Table 'articles' is deleted successfully.\n";
         return true;
     }
 	/*

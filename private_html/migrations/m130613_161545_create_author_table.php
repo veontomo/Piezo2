@@ -10,14 +10,14 @@ class m130613_161545_create_author_table extends CDbMigration
             'surname' => 'string NOT NULL',
             'description' => 'text'
         ));
-        echo "Table 'authors' is created successfully.";
+        echo "Table 'authors' is created successfully.\n";
         return true;
     }
 
     public function down()
     {
         $this->dropTable('authors');
-        echo "Table 'authors' is deleted successfully.";
+        echo "Table 'authors' is deleted successfully.\n";
         return true;
     }
 
