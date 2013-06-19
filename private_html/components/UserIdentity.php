@@ -24,7 +24,7 @@ class UserIdentity extends CUserIdentity
 			'Andrew'=>'test',
 		);
         $username = strtolower($this->username);
-        $user=Users::model()->find("LOWER(login)=?",array($username));
+        $user=Users::model()->find("login=?",array($username));
         if($user===null)
             $this->errorCode=self::ERROR_USERNAME_INVALID;
         else if(md5($this->password)!==$user->pswd)
