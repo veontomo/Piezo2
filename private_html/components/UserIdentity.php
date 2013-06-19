@@ -23,7 +23,7 @@ class UserIdentity extends CUserIdentity
 			// username => password
 			'Andrew'=>'test',
 		);
-        $username = strtolower($this->username);
+        $username = $this->username;
         $user=Users::model()->find("login=?",array($username));
         if($user===null)
             $this->errorCode=self::ERROR_USERNAME_INVALID;
