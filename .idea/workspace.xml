@@ -23,7 +23,7 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/private_html/views/site/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="2476" selection-end="2476" vertical-scroll-proportion="0.0">
+            <state line="13" column="0" selection-start="2476" selection-end="2476" vertical-scroll-proportion="-0.65384614">
               <folding />
             </state>
           </provider>
@@ -65,46 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserIdentity.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="UserIdentity.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private_html/components/UserIdentity.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="10" selection-start="642" selection-end="642" vertical-scroll-proportion="-11.153846">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/private_html/config/console.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="31" selection-start="674" selection-end="681" vertical-scroll-proportion="0.54862386">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="20" selection-start="1647" selection-end="1651" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="normalize.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/css/normalize.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="170" column="24" selection-start="3037" selection-end="3040" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="screen.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public_html/css/screen.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="38" selection-start="3469" selection-end="4343" vertical-scroll-proportion="0.0">
+            <state line="40" column="19" selection-start="1214" selection-end="1214" vertical-scroll-proportion="0.879646">
               <folding />
             </state>
           </provider>
@@ -134,11 +98,11 @@
         <option value="$PROJECT_DIR$/private_html/config/main.php" />
         <option value="$PROJECT_DIR$/private_html/views/site/login.php" />
         <option value="$PROJECT_DIR$/private_html/models/LoginForm.php" />
-        <option value="$PROJECT_DIR$/private_html/components/UserIdentity.php" />
         <option value="$PROJECT_DIR$/private_html/views/site/index.php" />
         <option value="$PROJECT_DIR$/private_html/views/layouts/main.php" />
         <option value="$PROJECT_DIR$/private_html/controllers/ArticlesController.php" />
         <option value="$PROJECT_DIR$/public_html/css/foundation.css" />
+        <option value="$PROJECT_DIR$/private_html/components/UserIdentity.php" />
       </list>
     </option>
   </component>
@@ -613,7 +577,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/private_html/views/site/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="2476" selection-end="2476" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="2476" selection-end="2476" vertical-scroll-proportion="-0.65384614">
           <folding />
         </state>
       </provider>
@@ -660,16 +624,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private_html/components/UserIdentity.php">
+    <entry file="file://$PROJECT_DIR$/private_html/config/console.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="10" selection-start="642" selection-end="642" vertical-scroll-proportion="-11.153846">
+        <state line="21" column="31" selection-start="674" selection-end="681" vertical-scroll-proportion="0.54862386">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private_html/config/console.php">
+    <entry file="file://$PROJECT_DIR$/private_html/components/UserIdentity.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="31" selection-start="674" selection-end="681" vertical-scroll-proportion="0.54862386">
+        <state line="40" column="19" selection-start="1214" selection-end="1214" vertical-scroll-proportion="0.879646">
           <folding />
         </state>
       </provider>
