@@ -20,4 +20,16 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+/**
+*	This method prints a string in the console, if in the debugging mode.
+* Prints the argument in the console when YII_DEBUG is set to TRUE
+* @param 	string $text
+* @return void
+*/
+public function showinfo($text){
+   if(defined('YII_DEBUG') && 'YII_DEBUG'){
+       echo Yii::trace(CVarDumper::dumpAsString($text),'vardump');
+   }
+}
 }

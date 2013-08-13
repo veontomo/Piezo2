@@ -4,12 +4,12 @@ class m130614_172240_seed_users extends CDbMigration
 {
 	public function up()
 	{
-        return $this->insert('users',array('login'=> 'Andrew','pswd' => md5('test')));
+        return $this->insert('users', array('login' => 'Andrew', 'pswd' => md5('test')));
     }
 
 	public function down()
 	{
-       return $this->delete('users','login=:login',array(':login'=>'Andrew'));
+       return $this->delete('users', 'login=:login', array(':login' => 'Andrew'));
 	}
 
 	/*

@@ -58,21 +58,29 @@ class LoginForm extends CFormModel
 	 * Logs in the user using the given username and password in the model.
 	 * @return boolean whether login is successful
 	 */
-	public function login()
-	{
-		if($this->_identity===null)
-		{
+	public function login(){
+		if($this->_identity===null){
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__." identity is null"),'vardump');
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
-        }
-		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
-		{
-            $duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
+    }else{
+    	echo Yii::trace(CVarDumper::dumpAsString(__METHOD__." identity is NOT null"),'vardump');
+    }
+		if($this->_identity->errorCode===UserIdentity::ERROR_NONE){
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__." error code is ".UserIdentity::ERROR_NONE),'vardump');
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": before returning TRUE"),'vardump');
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": this->_identity = ".serialize($this->_identity)),'vardump');
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": this->_identity->getId = ".serialize($this->_identity->getId())),'vardump');
+      $duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
 			Yii::app()->user->login($this->_identity,$duration);
+
 			return true;
 		}
-		else
-          return false;
+		else{
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__." error code is NOT 	".UserIdentity::ERROR_NONE),'vardump');
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": before returning FALSE"),'vardump');
+    	return false;
+    }
 
 	}
 }

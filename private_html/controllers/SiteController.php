@@ -77,6 +77,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
+		echo Yii::trace(CVarDumper::dumpAsString(__METHOD__),'vardump');
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -89,10 +90,16 @@ class SiteController extends Controller
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
+			echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.' _POST[LoginForm] = '.implode("\n", $_POST['LoginForm'])),'vardump');
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if($model->validate() && $model->login()){
+				echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.', model is valid'),'vardump');
+				echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.', redirecting to '.Yii::app()->user->returnUrl),'vardump');
+				// die("stop before redirect: ".__METHOD__.":".__LINE__);
 				$this->redirect(Yii::app()->user->returnUrl);
+				
+			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));

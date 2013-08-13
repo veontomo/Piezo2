@@ -43,6 +43,8 @@
 		Copyright &copy; <?php echo date('Y'); ?> by PiezoWorld.<br/>
 		All Rights Reserved.<br/>
 	</div><!-- footer -->
-
+<?php
+ echo Yii::trace(CVarDumper::dumpAsString(__FUNCTION__.Yii::app()->user->isGuest),'vardump');
+?>
 </body>
 </html>
