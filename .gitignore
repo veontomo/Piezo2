@@ -1,4 +1,8 @@
 private_html/config/*.php
+private_html/yiic.php
+private_html/yiic.bat
+private_html/yiic
+
 docs/*
 
 
