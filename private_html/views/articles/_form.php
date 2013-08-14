@@ -9,49 +9,69 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'articles-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('class' => 'ink-form'),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+	<fieldset>
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'title'); ?>
+		<br />
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'title'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'title'); ?>
+		</div>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'abstract'); ?>
+		<br />
 		<?php echo $form->textArea($model,'abstract',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'abstract'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'abstract'); ?>
+		</div>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'url'); ?>
+		<br />
 		<?php echo $form->textField($model,'url',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'url'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'url'); ?>
+		</div>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'year'); ?>
+		<br />
 		<?php echo $form->textField($model,'year',array('size'=>4,'maxlength'=>4)); ?>
-		<?php echo $form->error($model,'year'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'year'); ?>
+		</div>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'page'); ?>
+		<br />
 		<?php echo $form->textField($model,'page',array('size'=>8,'maxlength'=>8)); ?>
-		<?php echo $form->error($model,'page'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'page'); ?>
+		</div>
 	</div>
 
-	<div class="row">
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'journal'); ?>
+		<br />
 		<?php echo $form->textField($model,'journal'); ?>
-		<?php echo $form->error($model,'journal'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'journal'); ?>
+		</div>
 	</div>
 
-	<div class="row buttons">
+	<div class="control-group buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

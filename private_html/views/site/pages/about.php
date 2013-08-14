@@ -6,6 +6,11 @@ $this->breadcrumbs=array(
 	'About',
 );
 ?>
-<h1>About</h1>
-
-<p>This web page is devoted to systematization of knowledge in piezonuclear physics.</p>
+<div class="ink-grid">
+	<div class="column-group gutters">
+		<div class="large-90">
+			<h1>About</h1>
+			<p>This web page is devoted to systematization of knowledge in piezonuclear physics.</p>
+		</div>
+	</div>
+</div>

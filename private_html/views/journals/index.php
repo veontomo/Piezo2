@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Journals', 'url'=>array('create')),
+	array('label'=>'Add Journal', 'url'=>array('create')),
 	array('label'=>'Manage Journals', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Journals</h1>
+<h1>List of Journals</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Journals', 'url'=>array('index')),
+	array('label'=>'List of Journals', 'url'=>array('index')),
 	array('label'=>'Manage Journals', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Journals</h1>
+<h1>Add Journal</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

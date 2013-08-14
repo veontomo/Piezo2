@@ -61,7 +61,7 @@ class Keywords extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'name' => 'keyword',
 		);
 	}
 

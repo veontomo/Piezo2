@@ -8,20 +8,20 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Journals', 'url'=>array('index')),
-	array('label'=>'Create Journals', 'url'=>array('create')),
-	array('label'=>'Update Journals', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Journals', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'List all Journals', 'url'=>array('index')),
+	array('label'=>'Add Journal', 'url'=>array('create')),
+	array('label'=>'Update Journal Info', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Remove '.$model->name, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Journals', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Journals #<?php echo $model->id; ?></h1>
+<h1>Journal</h1>
+<h2><?php echo $model->name; ?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'name',
 		'url',
 		'description',

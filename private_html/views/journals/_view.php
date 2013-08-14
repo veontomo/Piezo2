@@ -3,11 +3,7 @@
 /* @var $data Journals */
 ?>
 
-<div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
+<article>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
 	<?php echo CHtml::encode($data->name); ?>
@@ -21,5 +17,7 @@
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
+	<?php echo CHtml::link(CHtml::encode("Details"), array('view', 'id'=>$data->id)); ?>
 
-</div>
+
+</article>

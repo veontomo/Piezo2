@@ -17,12 +17,7 @@ class UserIdentity extends CUserIdentity{
     private $_id;
 
     public function authenticate(){
-        $users=array(
-            // username => password
-            'demo'=>'demo',
-            'admin'=>'admin',
-        );
-        echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": ".$this->username),'vardump');
+        // echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": ".$this->username),'vardump');
         $username = $this->username;
         $user=Users::model()->find('login=?', array($username));
         if($user === null){
@@ -42,53 +37,21 @@ class UserIdentity extends CUserIdentity{
 
         echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": from db: ".serialize($user)),'vardump');
 
-        // if(!isset($users[$this->username])){
-        //     $this->errorCode=self::ERROR_USERNAME_INVALID;
-        //     echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.'Not set $users[$this->username]'),'vardump');
-        // }
-        // else{
-        //     echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.':  Array $users has key '.$this->username),'vardump');
-        //     echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": ".$users[$this->username].' vs '.$this->password),'vardump');
-        //     if($users[$this->username]!==$this->password){
-        //         echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": wrong password"),'vardump');
-        //         $this->errorCode=self::ERROR_PASSWORD_INVALID;
-        //     }
-        //     else{
-        //         echo Yii::trace(CVarDumper::dumpAsString(__METHOD__.": correct password"),'vardump');
-        //         $this->errorCode=self::ERROR_NONE;
-        //     }
-        // }
 
         return !$this->errorCode;
     }
 
-//	public function authenticate()
-//	{
-//		$users=array(
-//			// username => password
-//			'Andrew'=>'test',
-//		);
-//        $username = $this->username;
-//        $user=Users::model()->find('login=?',array($username));
-//        if($user===null)
-//        {
-//            $this->errorCode=self::ERROR_USERNAME_INVALID;
-//        }
-//        elseif(md5($this->password)!==$user->pswd)
-//        {
-//            $this->errorCode=self::ERROR_PASSWORD_INVALID;
-//        }
-//        else{
-//            $this->_id = $user->id;
-//            $this->username = $user->login;
-//            $this->errorCode=self::ERROR_NONE;
-//        }
-//        $this->errorCode=self::ERROR_NONE;
-//        return !$this->errorCode;
-//	}
-
     public function getId(){
-//        return $this->_id;
-        return 1;
+        return $this->_id;
+        /* this piece of code is neccessary when making autorization against an array
+            $users=array(
+                // username => password
+                'demo'=>'demo',
+                'admin'=>'admin',
+            );
+
+        the return value should be an integer
+        // return 1;
+        */
     }
 }

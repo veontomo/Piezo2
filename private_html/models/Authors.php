@@ -66,7 +66,7 @@ class Authors extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'surname' => 'Surname',
-			'description' => 'Description',
+			'description' => 'Additional information',
 		);
 	}
 
