@@ -2,6 +2,10 @@
 
 class SiteTest extends WebTestCase
 {
+
+	/**
+	* @group TEST
+	*/
 	public function testIndex()
 	{
 		$this->open('');
