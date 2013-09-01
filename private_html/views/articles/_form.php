@@ -65,7 +65,7 @@
 	<div class="control-group">
 		<?php echo $form->labelEx($model,'journal'); ?>
 		<br />
-		<?php echo $form->textField($model,'journal'); ?>
+		<?php echo $form->dropDownList($model,'journal', CHtml::listData(Journals::model()->findAll(),'id','name' )); ?>
 		<div class="control">
 			<?php echo $form->error($model,'journal'); ?>
 		</div>
