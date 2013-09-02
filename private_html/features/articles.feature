@@ -5,7 +5,7 @@ Feature: adding and editing article info
 
  Background: I am logged in as admin
 
-    Given I am on "index.php?r=site/login"
+    Given I am on "?r=site/login"
     When I fill in "LoginForm[username]" with "Andrew"
     And  I fill in "LoginForm[password]" with "test"
     And I press "Login"

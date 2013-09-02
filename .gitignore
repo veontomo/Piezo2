@@ -3,6 +3,20 @@ private_html/yiic.php
 private_html/yiic.bat
 private_html/yiic
 
+private_html/vendor/behat/*
+private_html/vendor/composer/*
+private_html/vendor/fabpot/*
+private_html/vendor/guzzle/*
+private_html/vendor/instaclick/*
+private_html/vendor/symfony/*
+private_html/vendor/autoload.php
+
+private_html/composer.*
+private_html/behat.yml
+
+
+
+
 docs/*
 
 

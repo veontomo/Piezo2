@@ -4,7 +4,7 @@ Feature: Search
   I need to be able to search for a word
 
   Scenario: Searching for a page that does exist
-    Given I am on "/wiki/Main_Page"
+    Given I am on "/"
     When I fill in "search" with "Behavior Driven Development"
     And I press "searchButton"
-    Then I should see the following: "software development process"
+    Then I should see "software development process"

@@ -6,12 +6,13 @@ use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkDictionary;
 
 //
 // Require 3rd-party libraries here:
 //
-//   require_once 'PHPUnit/Autoload.php';
-//   require_once 'PHPUnit/Framework/Assert/Functions.php';
+  // require_once 'PHPUnit/Autoload.php';
+  // require_once 'PHPUnit/Framework/Assert/Functions.php';
 //
 
 /**
@@ -19,11 +20,13 @@ use Behat\Gherkin\Node\PyStringNode,
  */
 class FeatureContext extends BehatContext
 {
+
+    use MinkDictionary;
     /**
      * Initializes context.
      * Every scenario gets it's own context object.
      *
-     * @param   array   $parameters     context parameters (set them up through behat.yml)
+     * @param array $parameters context parameters (set them up through behat.yml)
      */
     public function __construct(array $parameters)
     {
@@ -41,4 +44,14 @@ class FeatureContext extends BehatContext
 //        doSomethingWith($argument);
 //    }
 //
+
+    /**
+     * @Given /^I should see the following: "([^"]*)"$/
+     */
+    public function iShouldSeeTheFollowing($arg1)
+    {
+        throw new PendingException();
+    }
+
+
 }
