@@ -253,11 +253,5 @@ class FeatureContext extends BaseFeaturesContext
         }
     }
 
-    /**
-    * @Then /^I should see the following: "([^"]*)"$/
-    */
-    public function iShouldSeeTheFollowing($arg1)
-    {
-        assertEquals(0, 0);
-    }
+ 
 }

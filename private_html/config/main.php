@@ -49,13 +49,7 @@ return array(
 		*/
 		// uncomment the following to use a MySQL database
 
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=piezonuc_biblio',
-			'emulatePrepare' => true,
-			'username' => 'piezonuc_a1',
-			'password' => 'vYk*n4A',
-			'charset' => 'utf8',
-		),
+		'db'=>require(dirname(__FILE__) . '/dev_db.php'),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

@@ -19,14 +19,14 @@ Feature: adding and editing article info
     And I fill in "Articles[url]" with "www.oho-ho.com"
     And I fill in "Articles[page]" with "112"
     And I fill in "Articles[year]" with "1987"
-    And I select "Some Journal" from "Articles[journal]" 
+    And I select "" from "Articles[journal]" 
     And I press "Create"
     Then I should see "About all properties"
     Then I should see "Oho-ho-ho"
     Then I should see "www.oho-ho.com"
     Then I should see "112"
     Then I should see "1987"
-    Then I should see "Some Journal"
+    Then I should see ""
 
 
 
