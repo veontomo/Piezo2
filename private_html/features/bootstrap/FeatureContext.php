@@ -1,5 +1,4 @@
 <?php
-
 use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
     Behat\Behat\Context\BehatContext,
@@ -7,6 +6,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
+use Behat\MinkExtension\Context; 
 //
 // Require 3rd-party libraries here:
 //
@@ -19,20 +19,15 @@ use Behat\Gherkin\Node\PyStringNode,
  */
 class FeatureContext extends BehatContext
 {
+
     /**
-     * Initializes context.
-     * Every scenario gets it's own context object.
-     *
-     * @param   array   $parameters     context parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
+    * @Given /^the following journals are present$/
+    */
+    public function theFollowingJournalsArePresent()
     {
-        //$this->useContext('mink', new MinkContext());
+        throw new PendingException();
     }
 
-//
-// Place your definition and hook methods here:
-//
    /**
     * @Given /^I have done something with "([^"]*)"$/
     */
@@ -49,4 +44,6 @@ class FeatureContext extends BehatContext
     {
     //throw new PendingException();
     }
+
+
 }

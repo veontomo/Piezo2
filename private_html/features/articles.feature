@@ -4,6 +4,7 @@ Feature: adding and editing article info
   I need to be able to insert article info
 
  Background: I am logged in as admin
+
     Given I am on "index.php?r=site/login"
     When I fill in "LoginForm[username]" with "Andrew"
     And  I fill in "LoginForm[password]" with "test"
@@ -19,6 +20,7 @@ Feature: adding and editing article info
     And I fill in "Articles[url]" with "www.oho-ho.com"
     And I fill in "Articles[page]" with "112"
     And I fill in "Articles[year]" with "1987"
+    And I should see the following: "aaa, cccc"
     And I select "" from "Articles[journal]" 
     And I press "Create"
     Then I should see "About all properties"

@@ -9,7 +9,5 @@ class InheritedFeatureContext extends Behat\MinkExtension\Context\MinkContext
     {
         $this->getSession()->wait(5000, "$('.suggestions-results').children().length > 0");
     }
-
-
-    
+   
 }
