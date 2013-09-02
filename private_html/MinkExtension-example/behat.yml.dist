@@ -3,7 +3,7 @@ default:
     class:  'InheritedFeatureContext'
   extensions:
     Behat\MinkExtension\Extension:
-      base_url:  'http://localhost/Piezo2/public_html/index-test.php'
+      base_url:  'http://en.wikipedia.org/'
       goutte:    ~
       selenium2: ~
 
