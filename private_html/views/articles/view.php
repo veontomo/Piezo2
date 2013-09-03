@@ -26,6 +26,10 @@ $this->menu=array(
 		'url',
 		'year',
 		'page',
-		'journal',
+		array(               
+            'label'=>'Journal',
+            'type'=>'raw',
+            'value'=>CHtml::encode($model->journal0->name)
+        ),
 	),
 )); ?>

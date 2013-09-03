@@ -6,12 +6,7 @@ Feature: general structure
  
   Scenario: presence of menu items
     Given I am on "/"
-    Then I should see "Piezonuclear Science"
-    And I should see "Home"
-    And I should see "Articles"
-    And I should see "Authors"
-    And I should see "Contact"
-    And I should see "Journals"
+    Then I should see the following: "Piezonuclear Science, Home, Articles, Contact, Journals"
 
 
 

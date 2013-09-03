@@ -44,7 +44,7 @@
 	</div>
 	</fieldset>
 	<div class="control-group buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

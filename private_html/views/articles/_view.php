@@ -26,7 +26,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('journal')); ?>:</b>
-	<?php echo CHtml::encode($data->journal); ?>
+	<?php echo CHtml::encode($data->journal0->name); ?>
 	<br />
 
 	<?php echo CHtml::link(CHtml::encode("Details"), array('view', 'id'=>$data->id)); ?>
