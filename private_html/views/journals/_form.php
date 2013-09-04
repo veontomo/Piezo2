@@ -1,3 +1,4 @@
+2wsxcde3
 <?php
 /* @var $this JournalsController */
 /* @var $model Journals */
@@ -44,7 +45,7 @@
 	</div>
 	</fieldset>
 	<div class="control-group buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

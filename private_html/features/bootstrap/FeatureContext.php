@@ -59,8 +59,11 @@ class FeatureContext extends BehatContext
         $output = array();
         $words = explode(",", $commaSeparatedString);
         foreach ($words as $word) {
+            echo 'searching for "', $word, '", its trimmed version: "', trim($word), '"',PHP_EOL;
             $output[] = new Then('I should see "'.trim($word).'"');
         }
+
+
         return $output;
     }
 
@@ -85,31 +88,21 @@ class FeatureContext extends BehatContext
     public function theFollowingJournalsArePresent(TableNode $journalsTable)
     {
         $journals = $journalsTable->getHash();
-        echo "There are ", count($journals), PHP_EOL;
         foreach ($journals as $key => $journal) {
-            echo $key, "-th journal:", PHP_EOL;
             $j = Journals::model()->find('name=:name', array(':name' => $journal['name']));
             if($j){
-                echo 'the title ', $journal['name'] , ' is found in the DB.' ,PHP_EOL;      
-                if( $j->url != $journal['url'] ||
-                    $j->description != $journal['description'])
-                {
-                    echo "found journal has other url and/or description", PHP_EOL;    
-                    return new Exception('the journal '.$journal['name']. " exists with other url and/or description");
-                }else{
-                    echo "found journal has has the same url and description, so nothing is required", PHP_EOL;    
-
-                }
+                echo 'updating Journal ', $journal['name'], ' info.',  PHP_EOL;
+                $j->url = $journal['link'];
+                $j->description = $journal['description'];
             }else{
-                echo 'the title ', $journal['name'], ' is NOT found in the DB.' , PHP_EOL; 
                 $j = new Journals();
                 $j->name = $journal["name"];
-                $j->url = $journal["url"];
-                $j->description = $journal["description"];
-                $j->save();
-                echo 'the journal was written to the DB.',  PHP_EOL; 
-
+                $j->url = $journal["link"];
+                $j->description = $journal["description"];  
+                echo 'creating new Journal ', $j->name, PHP_EOL;              
             }
+            echo $j->save() ? 'Journal info is saved' : 'Journal remains unsaved';
+            echo PHP_EOL;
         }
     }
 
@@ -156,7 +149,8 @@ class FeatureContext extends BehatContext
     {
         $journal = Journals::model()->find("name=:name", array(":name" => $journalName));
         if($journal){
-            return new Then('I am on "?r=journals/update&id='.$journal->id.'"');
+            echo $journalName, " has id ", $journal->id, PHP_EOL;
+            return new When('I am on "?r=journals/update&id='.$journal->id.'"');
         }else{
             return false;
         }
