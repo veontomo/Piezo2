@@ -1,4 +1,3 @@
-2wsxcde3
 <?php
 /* @var $this JournalsController */
 /* @var $model Journals */

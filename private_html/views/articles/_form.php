@@ -72,7 +72,7 @@
 	</div>
 
 	<div class="control-group buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Update'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

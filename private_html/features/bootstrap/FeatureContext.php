@@ -2,7 +2,8 @@
 use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
     Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
+    Behat\Behat\Exception\PendingException,
+    Behat\Behat\Event\ScenarioEvent;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkDictionary;
@@ -37,19 +38,14 @@ class FeatureContext extends BehatContext
         // Initialize your context here
     }
 
-
-
-//
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        doSomethingWith($argument);
-//    }
-//
+    /**
+      * @AfterScenario @database
+      */
+    public static function teardown(SuiteEvent $event){
+        foreach (Articles::model()->findAll() as $item) {
+            $item->delete();
+        }
+    }
 
     /**
      * @Given /^I should see the following: "([^"]*)"$/
@@ -59,11 +55,8 @@ class FeatureContext extends BehatContext
         $output = array();
         $words = explode(",", $commaSeparatedString);
         foreach ($words as $word) {
-            echo 'searching for "', $word, '", its trimmed version: "', trim($word), '"',PHP_EOL;
-            $output[] = new Then('I should see "'.trim($word).'"');
+             $output[] = new Then('I should see "'.trim($word).'"');
         }
-
-
         return $output;
     }
 
@@ -154,6 +147,47 @@ class FeatureContext extends BehatContext
         }else{
             return false;
         }
-
     }
+
+    /**
+     * @When /^I am on edit page for article entitled "([^"]*)"$/
+     */
+    public function iAmOnEditPageForArticleEntitled($articleTitle)
+    {
+        $article = Articles::model()->find('title=:title', array(':title' => $articleTitle));
+        if($article){
+            return new When('I am on "?r=articles/update&id='.$article->id.'"');
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @Given /^the following articles are present:$/
+     */
+    public function theFollowingArticlesArePresent(TableNode $table)
+    {
+        $collection = $table->getHash();
+        foreach ($collection as $item) {
+            $title = trim($item['title']);
+            $abstract = trim($item['abstract']);
+            $url = trim($item['url']);
+            $page = trim($item['page']);
+            $year = trim($item['year']);
+            $journal = trim($item['journal']);
+
+            $article = Articles::model()->find('title=:title', array(':title' => $title));
+            if(!$article){
+                $article = new Articles();
+                $article->title = $title;
+            }
+            $article->abstract = $abstract;
+            $article->url = $url;
+            $article->page = (int) $page;
+            $article->year = (int) $year;
+            $article->journal = Journals::model()->find('name = :name', array(':name' => $journal))->id;
+            $article->save();            
+        }
+    }
+
 }
