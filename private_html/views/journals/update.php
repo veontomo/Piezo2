@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Journals', 'url'=>array('index')),
-	array('label'=>'Create Journals', 'url'=>array('create')),
+	array('label'=>'Add Journal', 'url'=>array('create')),
 	array('label'=>'View Journals', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Journals', 'url'=>array('admin')),
 );
