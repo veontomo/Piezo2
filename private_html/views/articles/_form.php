@@ -71,6 +71,10 @@
 		</div>
 	</div>
 
+
+
+<?php echo $this->renderPartial('/keywords/_form_short', array('model'=>$keyword)); ?>
+
 	<div class="control-group buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Update'); ?>
 	</div>

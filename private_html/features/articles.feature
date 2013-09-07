@@ -39,4 +39,16 @@ Scenario: editing existing article
     Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999"
 
 
+Scenario: inserting article along with keywords
+    Given I am on "?r=articles/create"
+    Then I should see "keyword"
+    When I fill in "Articles[title]" with "Article with keywords"
+    And I fill in "Articles[abstract]" with "this is article with keywords"
+    And I fill in "Articles[url]" with "www.journal.com/article-with-keywords"
+    And I fill in "Articles[page]" with "1"
+    And I fill in "Articles[year]" with "2012"
+    And I select "Phys. Lett" from "Articles[journal]"
+    And I press "Add"
+    Then I should see the following: "About all properties, Oho-ho-ho, www.oho-ho.com, 112, 1987, Murzilka"    
+
 

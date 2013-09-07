@@ -62,7 +62,8 @@ class ArticlesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Articles;
+		$model = new Articles;
+		$keyword = new Keywords;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -75,7 +76,8 @@ class ArticlesController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model, 
+			'keyword' => $keyword
 		));
 	}
 
