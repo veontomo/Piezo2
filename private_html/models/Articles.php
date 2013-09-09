@@ -15,8 +15,7 @@
  * The followings are the available model relations:
  * @property Journals $journal0
  */
-class Articles extends CActiveRecord
-{
+class Articles extends ManyManyActiveRecord{
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -64,6 +63,7 @@ class Articles extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'journal0' => array(self::BELONGS_TO, 'Journals', 'journal'),
+			'keywords' => array(self::MANY_MANY, 'Keywords', 'articles_keywords(article_id, keyword_id)'),
 		);
 	}
 
@@ -81,6 +81,14 @@ class Articles extends CActiveRecord
 			'page' => 'Page',
 			'journal' => 'Journal',
 		);
+	}
+
+	public function keywordsArray(){
+		$keywords = array();
+		foreach ($this->keywords as $value) {
+			$keywords[] = $value->name;
+		}
+		return $keywords;
 	}
 
 	/**

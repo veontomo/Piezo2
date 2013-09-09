@@ -3,6 +3,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Context\TranslatedContextInterface,
     Behat\Behat\Context\BehatContext,
     Behat\Behat\Exception\PendingException,
+    Behat\Behat\Event\SuiteEvent,
     Behat\Behat\Event\ScenarioEvent;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
@@ -38,14 +39,25 @@ class FeatureContext extends BehatContext
         // Initialize your context here
     }
 
+
+
+
     /**
-      * @AfterScenario @database
-      */
-    public static function teardown(SuiteEvent $event){
+    * @BeforeScenario 
+    */
+    public static function prepare(){
         foreach (Articles::model()->findAll() as $item) {
             $item->delete();
         }
+        foreach (Journals::model()->findAll() as $item) {
+            $item->delete();
+        }
+        foreach (Keywords::model()->findAll() as $item) {
+            $item->delete();
+        }
     }
+
+
 
     /**
      * @Given /^I should see the following: "([^"]*)"$/
@@ -145,6 +157,7 @@ class FeatureContext extends BehatContext
             echo $journalName, " has id ", $journal->id, PHP_EOL;
             return new When('I am on "?r=journals/update&id='.$journal->id.'"');
         }else{
+            echo $journalName, " not found", PHP_EOL;
             return false;
         }
     }
@@ -156,8 +169,10 @@ class FeatureContext extends BehatContext
     {
         $article = Articles::model()->find('title=:title', array(':title' => $articleTitle));
         if($article){
+            echo $articleTitle, " has id ", $article->id, PHP_EOL;
             return new When('I am on "?r=articles/update&id='.$article->id.'"');
         }else{
+            echo $articleTitle, " not found!!!", PHP_EOL;
             return false;
         }
     }

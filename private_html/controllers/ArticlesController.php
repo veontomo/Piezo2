@@ -51,8 +51,10 @@ class ArticlesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+		$model = $this->loadModel($id);
+		// $keywords = $model ? $model->keywordsArray() : array();
+		$this->render('view', array(
+			'model' => $model,
 		));
 	}
 
@@ -71,9 +73,11 @@ class ArticlesController extends Controller
 		if(isset($_POST['Articles']))
 		{
 			$model->attributes=$_POST['Articles'];
-			if($model->save())
+			if($model->save()){
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
+		
 
 		$this->render('create',array(
 			'model'=>$model, 

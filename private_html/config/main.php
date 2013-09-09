@@ -49,7 +49,7 @@ return array(
 		*/
 		// uncomment the following to use a MySQL database
 
-		'db'=>require(dirname(__FILE__) . '/dev_db.php'),
+		'db' => require(dirname(__FILE__) . '/dev_db.php'),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

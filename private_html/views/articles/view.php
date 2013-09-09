@@ -31,5 +31,10 @@ $this->menu=array(
             'type'=>'raw',
             'value'=>CHtml::encode($model->journal0->name)
         ),
+		array(               
+            'label'=>'Keywords',
+            'type'=>'raw',
+            'value'=>CHtml::encode(implode(", ", $model->keywordsArray()))
+        ),
 	),
 )); ?>
