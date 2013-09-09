@@ -46,15 +46,16 @@ class FeatureContext extends BehatContext
     * @BeforeScenario 
     */
     public static function prepare(){
+        // foreach (Keywords::model()->findAll() as $item) {
+        //     $item->delete();
+        // }
         foreach (Articles::model()->findAll() as $item) {
             $item->delete();
         }
         foreach (Journals::model()->findAll() as $item) {
             $item->delete();
         }
-        foreach (Keywords::model()->findAll() as $item) {
-            $item->delete();
-        }
+        
     }
 
 
