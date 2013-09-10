@@ -29,6 +29,11 @@
 	<?php echo CHtml::encode($data->journal0->name); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('keyword')); ?>:</b>
+	<?php echo CHtml::encode($data->allKeywordsString()); ?>
+	<br />
+
+
 	<?php echo CHtml::link(CHtml::encode("Details"), array('view', 'id'=>$data->id)); ?>
 
 

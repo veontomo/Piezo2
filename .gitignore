@@ -15,10 +15,8 @@ private_html/composer.*
 private_html/behat.yml
 
 
-
-
 docs/*
-
+doxygen_output/*
 
 #################
 ## Eclipse

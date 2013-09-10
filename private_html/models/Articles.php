@@ -63,7 +63,7 @@ class Articles extends ManyManyActiveRecord{
 		// class name for the relations automatically generated below.
 		return array(
 			'journal0' => array(self::BELONGS_TO, 'Journals', 'journal'),
-			'keywords' => array(self::MANY_MANY, 'Keywords', 'articles_keywords(article_id, keyword_id)'),
+			//'keywords' => array(self::HAS_MANY, 'Keywords', 'articles_keywords(article_id, keyword_id)'),
 		);
 	}
 
@@ -83,13 +83,6 @@ class Articles extends ManyManyActiveRecord{
 		);
 	}
 
-	public function keywordsArray(){
-		$keywords = array();
-		foreach ($this->keywords as $value) {
-			$keywords[] = $value->name;
-		}
-		return $keywords;
-	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -114,4 +107,53 @@ class Articles extends ManyManyActiveRecord{
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	*	Returns an array which elements are instances of class 'Keywords'. These instances are associated
+	* 	to the 'Articles' instance
+	*	@return array of 'Articles'
+	*/
+	public function keywords(){
+		$rels = ArticlesKeywords::model()->findAll('article_id = :aid', array(':aid' => $this->id));
+		$keywords = array();
+		foreach ($rels as $value) {
+			$keyword = Keywords::model()->findByPk($value->keyword_id);
+			if($keyword){
+				$keywords[] = $keyword;
+			}
+		}
+		return $keywords;
+	}
+
+	public function allKeywordsString(){
+		$keywordModels = $this->keywords();
+		if(!$keywordModels){$keywords[] = "empty! for {$this->id}";}
+		foreach ($keywordModels as $value) {
+
+			$keywords[] = $value->name;
+		}
+		return implode(", ", $keywords);
+	}
+
+
+	public function bindKeyword(Keywords $keyword){
+		$article_id = $this->id;
+		$keyword_id = $keyword->id;
+		$rel = new ArticlesKeywords;
+		$rel->article_id = $article_id;
+		$rel->keyword_id = $keyword_id;
+		$rel->save();
+	}
+
+	public function unbindKeyword(Keywords $keyword){
+		$article_id = $this->id;
+		$keyword_id = $keyword->id;
+		$rel = ArticlesKeywords::model()->find('article_id = :article_id AND keyword_id = :keyword_id', 
+			array(':article_id' => $article_id, ':keyword_id' => $keyword_id));
+		if(!$rel){
+			$rel->delete();
+		}		
+
+	}
+
 }

@@ -34,7 +34,7 @@ $this->menu=array(
 		array(               
             'label'=>'Keywords',
             'type'=>'raw',
-            'value'=>CHtml::encode(implode(", ", $model->keywordsArray()))
+            'value'=>CHtml::encode($model->allKeywordsString()),
         ),
 	),
 )); ?>

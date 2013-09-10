@@ -51,7 +51,7 @@ class Keywords extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'articles0' => array(self::HAS_MANY, 'Articles', 'articles')
+			//'articles0' => array(self::HAS_MANY, 'Articles', 'articles')
 		);
 	}
 
@@ -83,5 +83,21 @@ class Keywords extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	* Retrieves the model by the given name. If name does not exist, creates it.
+	* @param $str keyword name to look up
+	* @return a Keyword model
+	*/
+	public static function find_or_create_by_name($str){
+		$keywordModel = Keywords::model()->find('name = :name', array(':name' => $str));
+		if(!$keywordModel){
+			$keywordModel = new Keywords;
+			$keywordModel->name = $str;
+			$keywordModel->save();
+			echo Yii::trace(CVarDumper::dumpAsString('Keyword is saaved with id :'. $keywordModel->id),'vardump');
+		}
+		return $keywordModel;
 	}
 }

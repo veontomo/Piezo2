@@ -70,19 +70,34 @@ class ArticlesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Articles']))
-		{
+		if(isset($_POST['Articles'])){
 			$model->attributes=$_POST['Articles'];
 			if($model->save()){
+				// the keyword input fiels is as a string of comma separated keywords
+				// first, split the string, control whether the keyword is present in DB
+				// if it does not exist - create it
+				// second, add the corresponding record to the ArticlesKeywords model
+				if(isset($_POST['Keywords']['name'])){
+					$keywordString = $_POST['Keywords']['name'];
+					$keywordsArr = explode(',', $keywordString);
+					foreach ($keywordsArr as $keyword) {
+						$keywordTrimmed = trim($keyword);
+						if($keywordTrimmed){
+							$keywordModel = Keywords::find_or_create_by_name($keywordTrimmed);
+							$model->bindKeyword($keywordModel);
+						}
+					}
+				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
-		}
 		
+		}
 
 		$this->render('create',array(
 			'model'=>$model, 
 			'keyword' => $keyword
 		));
+	
 	}
 
 	/**
