@@ -139,10 +139,14 @@ class Articles extends ManyManyActiveRecord{
 	public function bindKeyword(Keywords $keyword){
 		$article_id = $this->id;
 		$keyword_id = $keyword->id;
-		$rel = new ArticlesKeywords;
-		$rel->article_id = $article_id;
-		$rel->keyword_id = $keyword_id;
-		$rel->save();
+		$rel = ArticlesKeywords::model()->find('article_id = :aid AND keyword_id = :kid', 
+			array(':aid' => $article_id, ':kid' => $keyword_id));
+		if(!$rel){
+			$rel = new ArticlesKeywords;
+			$rel->article_id = $article_id;
+			$rel->keyword_id = $keyword_id;
+			$rel->save();
+		}
 	}
 
 	public function unbindKeyword(Keywords $keyword){

@@ -108,6 +108,7 @@ class ArticlesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$keyword = new Keywords;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -121,6 +122,7 @@ class ArticlesController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'keyword' => $keyword
 		));
 	}
 

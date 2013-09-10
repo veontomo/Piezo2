@@ -13,7 +13,7 @@ Feature: adding and editing article info
     | Murzilka      | www.murz.com      | advanced child journal| 
     | Phys. Lett    | www.elsevire.com  | expensive journal     |
 
-Scenario: adding article 
+Scenario: adding article without keywords
     Given I am on "?r=articles/create"
     When I fill in "Articles[title]" with "About all properties"
     And I fill in "Articles[abstract]" with "Oho-ho-ho"
@@ -36,18 +36,22 @@ Scenario: inserting article along with keywords
     And I press "Add"
     Then I should see the following: "Article with keywords, this is article with keywords, www.journal.com/article-with-keywords, 1, 2012, Phys. Lett, keyword 1, keyword 2"  
 
-#Scenario: editing existing article
-#    Given the following articles are present:
-#    | title      | abstract      | url               | page  | year | journal    |
-#    | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
-#    | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
-#    When I am on edit page for article entitled "Happy NY"
-#    And I fill in "Articles[title]" with "Edited Article"
-#    And I fill in "Articles[abstract]" with "updated abstract"
-#    And I fill in "Articles[page]" with "101"
-#    And I select "Phys. Lett" from "Articles[journal]" 
-#    And I press "Update"
-#    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999"
+Scenario: editing existing article
+    Given the following articles are present:
+    | title      | abstract      | url               | page  | year | journal    |
+    | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
+    | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
+    Given the article entitled "Happy NY" has the key following keywords "k1, k2, k3"
+    When I am on edit page for article entitled "Happy NY"
+    Then I should see the following: "Happy NY, NY tree, 1999, Murzilka, k1, k2, k3"
+    And  I should see "www.HappyNY.com"
+    And  I should see "102"
+    And I fill in "Articles[title]" with "Edited Article"
+    And I fill in "Articles[abstract]" with "updated abstract"
+    And I fill in "Articles[page]" with "101"
+    And I select "Phys. Lett" from "Articles[journal]" 
+    And I press "Update"
+    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999"
 
 
   

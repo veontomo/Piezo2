@@ -213,4 +213,19 @@ class FeatureContext extends BehatContext
         }
     }
 
+    /**
+    * @Given /^the article entitled "([^"]*)" has the key following keywords "([^"]*)"$/
+    */
+    public function theArticleEntitledHasTheKeyFollowingKeywords($title, $keywords){
+        $article = Articles::model()->find('title = :title', array(':title' => $title));
+        if(!$article){
+            throw new Exception("Article with title \"$title\" not found", 1);
+        }
+        $keywordsArr = explode(',', $keywords);
+        foreach ($keywordsArr as $keyword) {
+            $keywordModel = Keywords::model()->find_or_create_by_name(trim($keyword));
+            $article->bindKeyword($keywordModel);
+        }
+    }
+
 }
