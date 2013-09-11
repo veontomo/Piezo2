@@ -63,10 +63,7 @@ Scenario: deleting existing article
     | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
     | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
     Given the article entitled "Happy NY" has the following keywords: "k1, k2, k3"
-    When I am on "?r=articles/create"
     Given I am on the view page of the article entitled "Happy NY"
-    # Then I wait for delete link to appear
     When I follow "Delete Article"
-    Then I should see "Are you sure you want to delete this item?"
-    When I confirm the popup
+    And I wait for 5 seconds
     Then article entitled "Happy NY" should not be present 

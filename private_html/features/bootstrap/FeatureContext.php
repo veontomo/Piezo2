@@ -251,7 +251,7 @@ class FeatureContext extends BehatContext
             return new When('I am on "?r=articles/view&id='.$article->id.'"');
         }else{
             echo 'article entitled ', $articleName, ' not found', PHP_EOL;
-            return false;
+            throw new Exception("Article with title \"$title\" not found", 1);
         }    
     }
 
@@ -262,8 +262,10 @@ class FeatureContext extends BehatContext
     public function articleEntitledShouldNotBePresent($arg1)
     {
         $articles = Articles::model()->findAll('title = :name', array(':name' => trim($arg1)));
-        if(count($articles)!=0){
+        if($articles){
            throw new Exception("Article entitled \"$arg1\" is still present", 1);
+        }else{
+            return true;
         }
     }
 
@@ -278,8 +280,9 @@ class FeatureContext extends BehatContext
     * @When /^(?:|I )should see "([^"]*)" in popup$/
     *
     * @param string $message The message.
-    *
     * @return bool
+    * @url  https://gist.github.com/benjaminlazarecki/2888851
+    *
     */
     public function assertPopupMessage($message){
         return $message == $this->getSession()->getDriver()->getWebDriverSession()->getAlert_text();
@@ -287,9 +290,20 @@ class FeatureContext extends BehatContext
 
 
     /**
-    * @Then /^I wait for delete link to appear$/
+    * @Then /^I wait for jquery to load$/
     */
-    public function iWaitForDeleteLinkToAppear(){
-        $this->getSession()->wait(5000, "$('a:contains(\"Delete\")').children().length > 0");
+    public function iWaitForJqueryToLoad(){
+        // $this->getSession()->wait(5000, "$('a:contains(\"Delete\")').length > 0");
+        // $this->getSession()->wait(5000, "typeof $ != 'undefined' ");
+        $this->getSession()->wait(5000);
+    }
+
+
+    /**
+     * @Given /^I wait for (\d+) seconds$/
+     */
+    public function iWaitForSeconds($arg1)
+    {
+        $this->getSession()->wait($arg1);
     }
 }

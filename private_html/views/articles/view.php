@@ -11,7 +11,10 @@ $this->menu=array(
 	array('label'=>'List of Articles', 'url'=>array('index')),
 	array('label'=>'Add Article', 'url'=>array('create')),
 	array('label'=>'Update Article', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Delete Article', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),
+		'confirm'=>'Are you sure you want to delete this item?'
+		)
+	),
 	array('label'=>'Manage Articles', 'url'=>array('admin')),
 );
 ?>
