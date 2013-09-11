@@ -14,7 +14,7 @@ private_html/vendor/autoload.php
 private_html/composer.*
 private_html/behat.yml
 
-runtime/*
+private_html/runtime/*
 docs/*
 doxygen_output/*
 
