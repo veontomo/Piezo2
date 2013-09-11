@@ -18,6 +18,8 @@ private_html/runtime/*
 docs/*
 doxygen_output/*
 
+public_html/assets/*
+
 #################
 ## Eclipse
 #################
