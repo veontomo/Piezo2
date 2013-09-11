@@ -32,7 +32,7 @@ class ArticlesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'delete', 'admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -73,24 +73,11 @@ class ArticlesController extends Controller
 		if(isset($_POST['Articles'])){
 			$model->attributes=$_POST['Articles'];
 			if($model->save()){
-				// the keyword input fiels is as a string of comma separated keywords
-				// first, split the string, control whether the keyword is present in DB
-				// if it does not exist - create it
-				// second, add the corresponding record to the ArticlesKeywords model
-				if(isset($_POST['Keywords']['name'])){
-					$keywordString = $_POST['Keywords']['name'];
-					$keywordsArr = explode(',', $keywordString);
-					foreach ($keywordsArr as $keyword) {
-						$keywordTrimmed = trim($keyword);
-						if($keywordTrimmed){
-							$keywordModel = Keywords::find_or_create_by_name($keywordTrimmed);
-							$model->bindKeyword($keywordModel);
-						}
-					}
+				if(isset($_POST['Keywords']['name']) && !empty($_POST['Keywords']['name'])){
+					$model->setKeywordsString($_POST['Keywords']['name']);
 				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
-		
 		}
 
 		$this->render('create',array(
@@ -109,6 +96,7 @@ class ArticlesController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$keyword = new Keywords;
+		$keyword->name = $model->allKeywordsString();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -116,8 +104,12 @@ class ArticlesController extends Controller
 		if(isset($_POST['Articles']))
 		{
 			$model->attributes=$_POST['Articles'];
-			if($model->save())
+			if($model->save()){
+				if(isset($_POST['Keywords']['name'])){
+					$model->setKeywordsString($_POST['Keywords']['name']);
+				}
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(
@@ -133,7 +125,12 @@ class ArticlesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		$keywords = $model->keywords();
+		foreach ($keywords as $keyword) {
+			$model->unbindKeyword($keyword);
+		}
+		$model->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

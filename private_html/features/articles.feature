@@ -41,19 +41,32 @@ Scenario: editing existing article
     | title      | abstract      | url               | page  | year | journal    |
     | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
     | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
-    Given the article entitled "Happy NY" has the key following keywords "k1, k2, k3"
+    Given the article entitled "Happy NY" has the following keywords: "k1, k2, k3"
     When I am on edit page for article entitled "Happy NY"
-    Then I should see the following: "Happy NY, NY tree, 1999, Murzilka, k1, k2, k3"
-    And  I should see "www.HappyNY.com"
-    And  I should see "102"
+    Then I should see the following: "Happy NY, NY tree"
+    And  I should see "Murzilka"
+
     And I fill in "Articles[title]" with "Edited Article"
     And I fill in "Articles[abstract]" with "updated abstract"
     And I fill in "Articles[page]" with "101"
-    And I select "Phys. Lett" from "Articles[journal]" 
+    And I select "Phys. Lett" from "Articles[journal]"
+    And I fill in "Keywords[name]" with "new keyword 1, new keyword 2, k3"
     And I press "Update"
-    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999"
+    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999, new keyword 1, new keyword 2, k3"
+    And I should not see the following: "Happy NY, k1, k2"
+    And I should not see "k1"
 
-
-  
-
-
+@javascript
+Scenario: deleting existing article
+    Given the following articles are present:
+    | title      | abstract      | url               | page  | year | journal    |
+    | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
+    | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
+    Given the article entitled "Happy NY" has the following keywords: "k1, k2, k3"
+    When I am on "?r=articles/create"
+    Given I am on the view page of the article entitled "Happy NY"
+    # Then I wait for delete link to appear
+    When I follow "Delete Article"
+    Then I should see "Are you sure you want to delete this item?"
+    When I confirm the popup
+    Then article entitled "Happy NY" should not be present 

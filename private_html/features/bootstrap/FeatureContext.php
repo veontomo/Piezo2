@@ -17,8 +17,8 @@ use Behat\Behat\Context\Step\Then,
 //
 // Require 3rd-party libraries here:
 //
-  // require_once 'PHPUnit/Autoload.php';
-  // require_once 'PHPUnit/Framework/Assert/Functions.php';
+   // require_once 'PHPUnit/Autoload.php';
+   // require_once 'PHPUnit/Framework/Assert/Functions.php';
 
 
 /**
@@ -73,13 +73,25 @@ class FeatureContext extends BehatContext
     public function iShouldSeeTheFollowing($commaSeparatedString)
     {
         $output = array();
-        $words = explode(",", $commaSeparatedString);
+        $words = array_unique(array_map('trim', explode(",", $commaSeparatedString)));
         foreach ($words as $word) {
-             $output[] = new Then('I should see "'.trim($word).'"');
+             $output[] = new Then('I should see "'.$word.'"');
         }
         return $output;
     }
 
+    /**
+     * @Given /^I should not see the following: "([^"]*)"$/
+     */
+    public function iShouldNotSeeTheFollowing($commaSeparatedString)
+    {
+        $output = array();
+        $words = array_unique(array_map('trim', explode(",", $commaSeparatedString)));
+        foreach ($words as $word) {
+             $output[] = new Then('I should not see "'.$word.'"');
+        }
+        return $output;
+    }
 
     /**
      * @Given /^I am logged in as admin$/
@@ -149,9 +161,9 @@ class FeatureContext extends BehatContext
             new When('I fill in "LoginForm[username]" with "'.$username.'"'),
             new When('I fill in "LoginForm[password]" with "'.$pswd.'"'),
             new When('I press "Login"'),
-            new When('I should see "'.$username.'"'),
-            new When('I should see "Logout"'),
-            new When('I should not see "Login"')
+            // new When('I should see "'.$username.'"'),
+            // new When('I should see "Logout"'),
+            // new When('I should not see "Login"')
             );
     }
 
@@ -214,9 +226,9 @@ class FeatureContext extends BehatContext
     }
 
     /**
-    * @Given /^the article entitled "([^"]*)" has the key following keywords "([^"]*)"$/
+    * @Given /^the article entitled "([^"]*)" has the following keywords: "([^"]*)"$/
     */
-    public function theArticleEntitledHasTheKeyFollowingKeywords($title, $keywords){
+    public function theArticleEntitledHasTheFollowingKeywords($title, $keywords){
         $article = Articles::model()->find('title = :title', array(':title' => $title));
         if(!$article){
             throw new Exception("Article with title \"$title\" not found", 1);
@@ -228,4 +240,56 @@ class FeatureContext extends BehatContext
         }
     }
 
+
+    /**
+    * @Given /^I am on the view page of the article entitled "([^"]*)"$/
+    */
+    public function iAmOnTheViewPageOfTheArticleEntitled($articleName){
+        $article = Articles::model()->find("title=:name", array(":name" => $articleName));
+        if($article){
+            echo 'article has id ', $article->id, PHP_EOL;
+            return new When('I am on "?r=articles/view&id='.$article->id.'"');
+        }else{
+            echo 'article entitled ', $articleName, ' not found', PHP_EOL;
+            return false;
+        }    
+    }
+
+
+    /**
+     * @Then /^article entitled "([^"]*)" should not be present$/
+     */
+    public function articleEntitledShouldNotBePresent($arg1)
+    {
+        $articles = Articles::model()->findAll('title = :name', array(':name' => trim($arg1)));
+        if(count($articles)!=0){
+           throw new Exception("Article entitled \"$arg1\" is still present", 1);
+        }
+    }
+
+    /**
+    * @When /^(?:|I )confirm the popup$/
+    */
+    public function confirmPopup(){
+        $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+    }
+
+    /**
+    * @When /^(?:|I )should see "([^"]*)" in popup$/
+    *
+    * @param string $message The message.
+    *
+    * @return bool
+    */
+    public function assertPopupMessage($message){
+        return $message == $this->getSession()->getDriver()->getWebDriverSession()->getAlert_text();
+    }
+
+
+    /**
+    * @Then /^I wait for delete link to appear$/
+    */
+    public function iWaitForDeleteLinkToAppear(){
+        $this->getSession()->wait(5000, "$('a:contains(\"Delete\")').children().length > 0");
+    }
 }

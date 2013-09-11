@@ -154,10 +154,36 @@ class Articles extends ManyManyActiveRecord{
 		$keyword_id = $keyword->id;
 		$rel = ArticlesKeywords::model()->find('article_id = :article_id AND keyword_id = :keyword_id', 
 			array(':article_id' => $article_id, ':keyword_id' => $keyword_id));
-		if(!$rel){
+		if($rel){
 			$rel->delete();
 		}		
+	}
 
+	/**
+	*	set keywords given as a string of comma separated words
+	*	@param $keywordsString a comma separated string of keywords
+	* 	The method compares the keywords already associated with the fiven Article
+	*	with those to be set. The keywords that should be present but missing are bound to the
+	*	Article, those that are present but that should not be present are unbound from the Article.
+	*/
+	public function setKeywordsString($keywordsString){
+		$newKeywordsArray = array_unique(array_map('trim', explode(',', $keywordsString)));
+		$presentKeywordsArray = array_unique(array_map('trim', explode(',', $this->allKeywordsString())));
+		$keywordsToAddArray = array_diff($newKeywordsArray, $presentKeywordsArray);
+		$keywordsToDropArray = array_diff($presentKeywordsArray, $newKeywordsArray);
+		foreach ($keywordsToAddArray as $value) {
+			$keyword = Keywords::model()->find_or_create_by_name($value);
+			if($keyword){
+				$this->bindKeyword($keyword);
+			}
+		}				
+		foreach ($keywordsToDropArray as $value) {
+			echo Yii::trace(CVarDumper::dumpAsString('unbinding: '. $value),'vardump');
+			$keyword = Keywords::model()->find('name = :name', array(':name' => $value));
+			if($keyword){
+				$this->unbindKeyword($keyword);
+			}
+		}			
 	}
 
 }
