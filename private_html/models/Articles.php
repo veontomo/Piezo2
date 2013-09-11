@@ -127,7 +127,8 @@ class Articles extends ManyManyActiveRecord{
 
 	public function allKeywordsString(){
 		$keywordModels = $this->keywords();
-		if(!$keywordModels){$keywords[] = "empty! for {$this->id}";}
+		$keywords = array();
+//		if(!$keywordModels){$keywords[] = "empty! for {$this->id}";}
 		foreach ($keywordModels as $value) {
 
 			$keywords[] = $value->name;
