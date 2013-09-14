@@ -76,6 +76,10 @@ class ArticlesController extends Controller
 				if(isset($_POST['Keywords']['name']) && !empty($_POST['Keywords']['name'])){
 					$model->setKeywordsString($_POST['Keywords']['name']);
 				}
+				if(isset($_POST['Keywords']['author']) && !empty($_POST['Keywords']['author']){
+					
+					$model->setAuthors();
+				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
