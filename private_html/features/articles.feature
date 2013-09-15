@@ -20,9 +20,12 @@ Scenario: adding article without keywords
     And I fill in "Articles[url]" with "www.oho-ho.com"
     And I fill in "Articles[page]" with "112"
     And I fill in "Articles[year]" with "1987"
-    And I select "Murzilka" from "Articles[journal]" 
+    And I select "Murzilka" from "Articles[journal]"
+    And I fill in "Authors[0][name]" with "M"
+    And I fill in "Authors[0][surname]" with "Galvani"
     And I press "Add"
-    Then I should see the following: "About all properties, Oho-ho-ho, www.oho-ho.com, 112, 1987, Murzilka"
+    Then I should see the following: "About all properties, Oho-ho-ho, www.oho-ho.com, 112, 1987, Murzilka, M Galvani"
+
 
 Scenario: inserting article along with keywords
     Given I am on "?r=articles/create"
@@ -42,20 +45,29 @@ Scenario: editing existing article
     | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
     | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
     Given the article entitled "Happy NY" has the following keywords: "k1, k2, k3"
+    Given the article entitled "Happy NY" has the following authors: 
+    | name  | surname   |
+    | Mario |   Galvani |
+    | John  |   Frank   |
+    | E.    |   Mallow  |
     When I am on edit page for article entitled "Happy NY"
-    Then I should see the following: "Happy NY, NY tree"
+#    Then I should see the following: "Happy NY, NY tree"
+    Then the "Articles[title]" field should contain "Happy NY"
+    And the "Articles[abstract]" field should contain "NY tree"
+    And the "Authors[1][name]" field should contain "John"
+    And the "Authors[1][surname]" field should contain "Frank"
     And  I should see "Murzilka"
-
     And I fill in "Articles[title]" with "Edited Article"
     And I fill in "Articles[abstract]" with "updated abstract"
     And I fill in "Articles[page]" with "101"
     And I select "Phys. Lett" from "Articles[journal]"
     And I fill in "Keywords[name]" with "new keyword 1, new keyword 2, k3"
+    And I fill in "Authors[1][name]" with "Edward"
+    And I fill in "Authors[1][surname]" with "Rokki"  
     And I press "Update"
-    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999, new keyword 1, new keyword 2, k3"
-    And I should not see the following: "Happy NY, k1, k2"
-    And I should not see "k1"
-
+    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999, new keyword 1, new keyword 2, k3, Edward Rokki"
+    And I should not see the following: "Happy NY, k1, k2, John, Frank"
+"""
 @javascript
 Scenario: deleting existing article
     Given the following articles are present:
@@ -66,4 +78,5 @@ Scenario: deleting existing article
     Given I am on the view page of the article entitled "Happy NY"
     When I follow "Delete Article"
     And I wait for 5 seconds
-    Then article entitled "Happy NY" should not be present 
+    Then article entitled "Happy NY" should not be present
+"""

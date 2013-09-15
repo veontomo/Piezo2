@@ -13,7 +13,7 @@ class m130907_183909_articles_keywords extends CDbMigration
 			'articles', 'id', 'RESTRICT', 'RESTRICT');
 		$this->addForeignKey('reference_to_keyword', 'articles_keywords', 'keyword_id',
 			'keywords', 'id', 'RESTRICT', 'RESTRICT');
-		echo 'the table articles_keywords along with the FKs has been created succesefully';
+		echo 'the table articles_keywords along with the FKs has been created successefully';
 	}
 
 	public function down()
@@ -21,7 +21,7 @@ class m130907_183909_articles_keywords extends CDbMigration
 		$this->dropForeignKey('reference_to_keyword', 'articles_keywords');
 		$this->dropForeignKey('reference_to_article', 'articles_keywords');
 		$this->dropTable('articles_keywords');
-		echo 'the table articles_keywords along with the FKs has been dropped succesefully';
+		echo 'the table articles_keywords along with the FKs has been dropped successefully';
 		return true;
 	}
 }

@@ -39,5 +39,10 @@ $this->menu=array(
             'type'=>'raw',
             'value'=>CHtml::encode($model->allKeywordsString()),
         ),
+		array(               
+            'label'=>'Authors',
+            'type'=>'raw',
+            'value'=>CHtml::encode($model->allAuthorsString()),
+        ),
 	),
 )); ?>

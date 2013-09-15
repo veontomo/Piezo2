@@ -70,10 +70,13 @@
 			<?php echo $form->error($model,'journal'); ?>
 		</div>
 	</div>
+<div class="control-group">
+	<?php echo $this->renderPartial('/authors/_form_short', array('model' => $authors)); ?>
+</div>
+<div class="control-group">
+	<?php echo $this->renderPartial('/keywords/_form_short', array('model' => $keyword)); ?>
+</div>
 
-
-
-<?php echo $this->renderPartial('/keywords/_form_short', array('model'=>$keyword)); ?>
 
 	<div class="control-group buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Add' : 'Update'); ?>

@@ -66,6 +66,7 @@ class ArticlesController extends Controller
 	{
 		$model = new Articles;
 		$keyword = new Keywords;
+		$authors = array(new Authors);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -76,17 +77,21 @@ class ArticlesController extends Controller
 				if(isset($_POST['Keywords']['name']) && !empty($_POST['Keywords']['name'])){
 					$model->setKeywordsString($_POST['Keywords']['name']);
 				}
-				if(isset($_POST['Keywords']['author']) && !empty($_POST['Keywords']['author']){
-					
-					$model->setAuthors();
+				if(isset($_POST['Authors']) && !empty($_POST['Authors'])){
+					foreach ($_POST['Authors'] as $author) {
+						$name = $author['name'];
+						$surname = $author['surname'];
+						$model->setAuthor(array('name' => $name, 'surname' => $surname));
+					}
 				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
 		$this->render('create',array(
-			'model'=>$model, 
-			'keyword' => $keyword
+			'model' => $model, 
+			'keyword' => $keyword,
+			'authors' => $authors
 		));
 	
 	}
@@ -101,6 +106,8 @@ class ArticlesController extends Controller
 		$model=$this->loadModel($id);
 		$keyword = new Keywords;
 		$keyword->name = $model->allKeywordsString();
+		$authors = $model->authors();
+		if(!$authors) $authors=array(new Authors);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -112,13 +119,22 @@ class ArticlesController extends Controller
 				if(isset($_POST['Keywords']['name'])){
 					$model->setKeywordsString($_POST['Keywords']['name']);
 				}
+				$model->unbindAllAuthors();
+				if(isset($_POST['Authors']) && !empty($_POST['Authors'])){
+					foreach ($_POST['Authors'] as $author) {
+						$name = $author['name'];
+						$surname = $author['surname'];
+						$model->setAuthor(array('name' => $name, 'surname' => $surname));
+					}
+				}
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
-			'keyword' => $keyword
+			'keyword' => $keyword,
+			'authors' => $authors
 		));
 	}
 
@@ -130,6 +146,7 @@ class ArticlesController extends Controller
 	public function actionDelete($id)
 	{
 		$model = $this->loadModel($id);
+		$model->unbindAllAuthors();
 		$keywords = $model->keywords();
 		foreach ($keywords as $keyword) {
 			$model->unbindKeyword($keyword);

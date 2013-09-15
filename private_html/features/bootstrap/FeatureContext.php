@@ -50,6 +50,10 @@ class FeatureContext extends BehatContext
         foreach ($models as $item) {
             $item->delete();
         }
+        $models = ArticlesAuthors::model()->findAll();
+        foreach ($models as $item) {
+            $item->delete();
+        }
         $models = Articles::model()->findAll();
         foreach ($models as $item) {
             $item->delete();
@@ -305,5 +309,25 @@ class FeatureContext extends BehatContext
     public function iWaitForSeconds($arg1)
     {
         $this->getSession()->wait($arg1);
+    }
+
+
+
+    /**
+     * @Given /^the article entitled "([^"]*)" has the following authors:$/
+     */
+    public function theArticleEntitledHasTheFollowingAuthors($title, TableNode $table)
+    {
+        $authors = $table->getHash();
+        $article = Articles::model()->find('title = :title', array(':title' => trim($title)));
+        if(!$article){
+           throw new Exception("Article entitled \"$title\" is not found", 1);
+        }
+        foreach($authors as $author){
+        	$authorModel = Authors::model()->find_or_create_by_name_and_surname(
+        		array('name' => $author['name'], 'surname' => $author['surname']));
+        	$article->bindAuthor($authorModel);
+        }
+
     }
 }

@@ -125,6 +125,18 @@ class Articles extends ManyManyActiveRecord{
 		return $keywords;
 	}
 
+	public function authors(){
+		$rels = ArticlesAuthors::model()->findAll('article_id = :aid', array(':aid' => $this->id));
+		$authors = array();
+		foreach ($rels as $value) {
+			$author = Authors::model()->findByPk($value->author_id);
+			if($author){
+				$authors[] = $author;
+			}
+		}
+		return $authors;
+	}
+
 	public function allKeywordsString(){
 		$keywordModels = $this->keywords();
 		$keywords = array();
@@ -136,6 +148,15 @@ class Articles extends ManyManyActiveRecord{
 		return implode(", ", $keywords);
 	}
 
+	public function allAuthorsString(){
+		$authorsModels = $this->authors();
+		$authors = array();
+		foreach ($authorsModels as $value) {
+
+			$authors[] = $value->name . ' ' . $value->surname;
+		}
+		return implode(", ", $authors);
+	}
 
 	public function bindKeyword(Keywords $keyword){
 		$article_id = $this->id;
@@ -185,6 +206,67 @@ class Articles extends ManyManyActiveRecord{
 				$this->unbindKeyword($keyword);
 			}
 		}			
+	}
+
+	/**
+	*	bind an instance of the Authors class to the Article
+	*	@param $author 
+	*	@return false (if the binding fails) or null (otherwise)
+	* 	The method consults the ArticlesAuthors table in order to find article_id and  author_id.
+	*	If not found, the record will be created with corresponding article_id and  author_id.
+	*	If found, nothing is executed. 
+	*/
+	public function bindAuthor(Authors $author){
+		$article_id = $this->id;
+		$author_id = $author->id;
+		$rel = ArticlesAuthors::model()->find('article_id = :article_id AND author_id = :author_id', 
+			array(':article_id' => $article_id, ':author_id' => $author_id));
+		if(!$rel){
+			$rel = new ArticlesAuthors;
+			$rel->article_id = $article_id;
+			$rel->author_id = $author_id;
+			if(!$rel->save()){
+				return false;
+			}
+		}
+	}
+
+	/**
+	*	unbind an instance of the Authors class to the Article
+	*	@param $author 
+	*	@return false (if the unbinding failed) or null (otherwise)
+	* 	The method consults the ArticlesAuthors table in order to find article_id and  author_id.
+	*	If found, the corresponding record will be deleted.
+	*	If not found, nothing is executed. 
+	*/
+	public function unbindAuthor(Authors $author){
+		$article_id = $this->id;
+		$author_id = $author->id;
+		$rel = ArticlesAuthors::model()->find('article_id = :article_id AND author_id = :author_id', 
+			array(':article_id' => $article_id, ':author_id' => $author_id));
+		if($rel){
+			if(!$rel->delete()){
+				return false;
+			};
+		}
+	}
+
+	public function unbindAllAuthors(){
+		$article_id = $this->id;
+		$rel = ArticlesAuthors::model()->findAll('article_id = :article_id', 
+			array(':article_id' => $article_id));
+		foreach ($rel as $value) {
+			$value->delete();		
+		}		
+	}
+
+	public function setAuthor($authorInfo){
+		$name = trim($authorInfo['name']);
+		$surname = trim($authorInfo['surname']);
+		if($name && $surname){
+			$author = Authors::model()->find_or_create_by_name_and_surname(array('name' => $name, 'surname' => $surname));
+			$this->bindAuthor($author);
+		}
 	}
 
 }

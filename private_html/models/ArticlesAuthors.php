@@ -1,20 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "authors".
+ * This is the model class for table "articles_authors".
  *
- * The followings are the available columns in table 'authors':
- * @property integer $id
- * @property string $name
- * @property string $surname
- * @property string $description
+ * The followings are the available columns in table 'articles_authors':
+ * @property integer $article_id
+ * @property integer $author_id
  */
-class Authors extends CActiveRecord
+class ArticlesAuthors extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Authors the static model class
+	 * @return ArticlesAuthors the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +24,7 @@ class Authors extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'authors';
+		return 'articles_authors';
 	}
 
 	/**
@@ -37,12 +35,11 @@ class Authors extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('surname', 'required'),
-			array('name, surname', 'length', 'max'=>255),
-			array('description', 'safe'),
+			array('article_id, author_id', 'required'),
+			array('article_id, author_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, surname, description', 'safe', 'on'=>'search'),
+			array('article_id, author_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,10 +60,8 @@ class Authors extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'surname' => 'Surname',
-			'description' => 'Additional information',
+			'article_id' => 'Article',
+			'author_id' => 'Author',
 		);
 	}
 
@@ -81,33 +76,11 @@ class Authors extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('surname',$this->surname,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('article_id',$this->article_id);
+		$criteria->compare('author_id',$this->author_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-
-	/**
-	* Retrieves the author by the given name and surname. If the model does not exist, creates it.
-	* @param $arr array of the form: array('name' => ..., 'surname' => ...)
-	* @return an instance of Authors model
-	*/
-	public static function find_or_create_by_name_and_surname($arr){
-		$name = trim($arr['name']);
-		$surname = trim($arr['surname']);
-		$authorModel = Authors::model()->find('name = :name AND surname = :surname', 
-				array(':name' => $name, ':surname' => $surname));
-		if(!$authorModel){
-			$authorModel = new Authors;
-			$authorModel->name = $name;
-			$authorModel->surname = $surname;
-			$authorModel->save();
-		}
-		return $authorModel;
 	}
 }

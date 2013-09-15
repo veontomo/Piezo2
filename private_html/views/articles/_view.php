@@ -33,6 +33,10 @@
 	<?php echo CHtml::encode($data->allKeywordsString()); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('authors')); ?>:</b>
+	<?php echo CHtml::encode($data->allAuthorsString()); ?>
+	<br />
+
 
 	<?php echo CHtml::link(CHtml::encode("Details"), array('view', 'id'=>$data->id)); ?>
 
