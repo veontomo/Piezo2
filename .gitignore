@@ -19,6 +19,8 @@ docs/*
 doxygen_output/*
 
 public_html/assets/*
+public_html/index.php
+public_html/index-test.php
 
 #################
 ## Eclipse
