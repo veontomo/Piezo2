@@ -24,9 +24,12 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'title',
+		array(               
+            'label'=>'Title',
+            'type'=>'raw',
+            'value'=>CHtml::link($model->title, $model->url)
+        ),
 		'abstract',
-		'url',
 		'year',
 		'page',
 		array(               

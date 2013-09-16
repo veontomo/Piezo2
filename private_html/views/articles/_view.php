@@ -6,17 +6,13 @@
 <article>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::encode($data->title); ?>
+	<?php echo CHtml::link($data->title, $data->url); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('abstract')); ?>:</b>
 	<?php echo CHtml::encode($data->abstract); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('url')); ?>:</b>
-	<?php echo CHtml::encode($data->url); ?>
-	<br />
-
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('year')); ?>:</b>
 	<?php echo CHtml::encode($data->year); ?>
 	<br />
