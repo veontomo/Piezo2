@@ -4,15 +4,16 @@ Feature: adding and editing article info
   I need to be able to insert article info
 
  Background: I am logged in
-    Given the following users exist:
-    | login     | pswd |
-    | test_user | test |
-    Given I am logged in as "test_user" with password "test"
     Given the following journals are present:
     | name          | link              | description           |
     | Murzilka      | www.murz.com      | advanced child journal| 
     | Phys. Lett    | www.elsevire.com  | expensive journal     |
+    Given the following users exist:
+    | login     | pswd |
+    | test_user | test |
+    Given I am logged in as "test_user" with password "test"
 
+@javascript
 Scenario: adding article without keywords
     Given I am on "?r=articles/create"
     When I fill in "Articles[title]" with "About all properties"
@@ -23,10 +24,13 @@ Scenario: adding article without keywords
     And I select "Murzilka" from "Articles[journal]"
     And I fill in "Authors[0][name]" with "M"
     And I fill in "Authors[0][surname]" with "Galvani"
+    And I click on field with id "addNewAuthor"
+    And I fill in "Authors[1][name]" with "Dimitri"
+    And I fill in "Authors[1][surname]" with "Mendeleev"
     And I press "Add"
-    Then I should see the following: "About all properties, Oho-ho-ho, www.oho-ho.com, 112, 1987, Murzilka, M Galvani"
+    Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, Dimitri Mendeleev"
 
-
+"""
 Scenario: inserting article along with keywords
     Given I am on "?r=articles/create"
     When I fill in "Articles[title]" with "Article with keywords"
@@ -37,7 +41,7 @@ Scenario: inserting article along with keywords
     And I select "Phys. Lett" from "Articles[journal]"
     And I fill in "Keywords[name]" with "keyword 1, keyword 2"
     And I press "Add"
-    Then I should see the following: "Article with keywords, this is article with keywords, www.journal.com/article-with-keywords, 1, 2012, Phys. Lett, keyword 1, keyword 2"  
+    Then I should see the following: "Article with keywords, this is article with keywords, 1, 2012, Phys. Lett, keyword 1, keyword 2"  
 
 Scenario: editing existing article
     Given the following articles are present:
@@ -65,9 +69,9 @@ Scenario: editing existing article
     And I fill in "Authors[1][name]" with "Edward"
     And I fill in "Authors[1][surname]" with "Rokki"  
     And I press "Update"
-    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, www.HappyNY.com, 1999, new keyword 1, new keyword 2, k3, Edward Rokki"
+    Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, 1999, new keyword 1, new keyword 2, k3, Edward Rokki"
     And I should not see the following: "Happy NY, k1, k2, John, Frank"
-"""
+
 @javascript
 Scenario: deleting existing article
     Given the following articles are present:

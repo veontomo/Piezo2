@@ -7512,3 +7512,20 @@ figcaption.dark {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   opacity: 1;
 }
+#authors{
+	display: inline-block;
+}
+#addNewAuthor{
+	display: inline;
+}
+#addNewAuthor img{
+	max-width: 32px;
+	margin: 0.5em;
+	vertical-align: middle;
+}
+.delete_author img{
+	max-width: 32px;
+}
+.delete_author{
+	display: inline;
+}

@@ -227,3 +227,12 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+#authors{
+	display: inline;
+	width: 50em;
+}
+#addNewAuthor{
+	float: left;
+	width: 3em;
+}

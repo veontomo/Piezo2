@@ -6,7 +6,8 @@ use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Event\SuiteEvent,
     Behat\Behat\Event\ScenarioEvent;
 use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+    Behat\Gherkin\Node\TableNode,
+    Behat\Mink\Element\NodeElement;
 use Behat\MinkExtension\Context\MinkDictionary;
 
 use Behat\Behat\Context\Step\Then,
@@ -330,4 +331,45 @@ class FeatureContext extends BehatContext
         }
 
     }
+
+    /**
+    * Click some text
+    *
+    * @When /^I click on the text "([^"]*)"$/
+    */
+    public function iClickOnTheText($text)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '*//*[text()="'. $text .'"]')
+        );
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Cannot find text: "%s"', $text));
+        }
+
+        $element->click();
+
+    }
+
+    /**
+    * Click field with id
+    *
+    * @When /^I click on field with id "([^"]*)"$/
+    */
+    public function iClickOnFieldWithId($text)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', '*//*[@id="'. $text .'"]')
+        );
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Cannot find field with id: "%s"', $text));
+        }
+
+        $element->click();
+
+    }
+
 }
