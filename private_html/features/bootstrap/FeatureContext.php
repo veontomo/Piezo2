@@ -71,6 +71,13 @@ class FeatureContext extends BehatContext
     }
 
 
+    /**
+     * @Given /^I am on home page$/
+     */
+    public function iAmOnHomePage2()
+    {
+        return new Given('I am on "?r=site/login"');
+    }
 
     /**
      * @Given /^I should see the following: "([^"]*)"$/

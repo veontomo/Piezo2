@@ -6,31 +6,30 @@
 <article>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::link($data->title, $data->url); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('abstract')); ?>:</b>
-	<?php echo CHtml::encode($data->abstract); ?>
+	<?php echo CHtml::link($data->title, $data->url, array('class' => 'capitalize')); ?>
 	<br />
 	
-	<b><?php echo CHtml::encode($data->getAttributeLabel('year')); ?>:</b>
-	<?php echo CHtml::encode($data->year); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('authors')); ?>:</b>
+	<?php echo CHtml::encode($data->allAuthorsString()); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('page')); ?>:</b>
+	
+	<b><?php echo CHtml::encode('Reference'); ?>:</b>
+	<?php echo CHtml::encode($data->journal0->name . ', '); ?>
+	<?php echo CHtml::encode('vol. ' . $data->volume . ', '); ?>
+	<?php echo CHtml::encode($data->year . ', '); ?>
+	<?php echo CHtml::encode('p.') ?>
 	<?php echo CHtml::encode($data->page); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('journal')); ?>:</b>
-	<?php echo CHtml::encode($data->journal0->name); ?>
-	<br />
-
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('keyword')); ?>:</b>
 	<?php echo CHtml::encode($data->allKeywordsString()); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('authors')); ?>:</b>
-	<?php echo CHtml::encode($data->allAuthorsString()); ?>
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('abstract')); ?>:</b>
+	<?php echo CHtml::encode($data->abstract); ?>
 	<br />
 
 

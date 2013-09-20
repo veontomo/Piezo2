@@ -13,6 +13,21 @@ Feature: adding and editing article info
     | test_user | test |
     Given I am logged in as "test_user" with password "test"
 
+Scenario: adding article keywords, no javascript used
+    Given I am on "?r=articles/create"
+    When I fill in "Articles[title]" with "About all properties"
+    And I fill in "Articles[abstract]" with "Oho-ho-ho"
+    And I fill in "Articles[url]" with "www.oho-ho.com"
+    And I fill in "Articles[page]" with "112"
+    And I fill in "Articles[year]" with "1987"
+    And I fill in "Articles[volume]" with "volume d6"
+    And I select "Murzilka" from "Articles[journal]"
+    And I fill in "Authors[0][name]" with "M"
+    And I fill in "Authors[0][surname]" with "Galvani"
+    And I press "Add"
+    Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, volume d6"
+
+"""
 @javascript
 Scenario: adding article without keywords
     Given I am on "?r=articles/create"
@@ -30,7 +45,7 @@ Scenario: adding article without keywords
     And I press "Add"
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, Dimitri Mendeleev"
 
-"""
+
 Scenario: inserting article along with keywords
     Given I am on "?r=articles/create"
     When I fill in "Articles[title]" with "Article with keywords"

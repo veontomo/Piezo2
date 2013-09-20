@@ -11,6 +11,7 @@
  * @property string $year
  * @property string $page
  * @property integer $journal
+ * @property integer $volume
  *
  * The followings are the available model relations:
  * @property Journals $journal0
@@ -47,7 +48,7 @@ class Articles extends ManyManyActiveRecord{
 			array('title, url', 'length', 'max'=>255),
 			array('year', 'length', 'max'=>4),
 			array('page', 'length', 'max'=>8),
-			array('abstract', 'safe'),
+			array('abstract, volume', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, abstract, url, year, page, journal', 'safe', 'on'=>'search'),
@@ -80,6 +81,7 @@ class Articles extends ManyManyActiveRecord{
 			'year' => 'Year',
 			'page' => 'Page',
 			'journal' => 'Journal',
+			'volume' => 'Volume'
 		);
 	}
 
@@ -142,10 +144,10 @@ class Articles extends ManyManyActiveRecord{
 		$keywords = array();
 //		if(!$keywordModels){$keywords[] = "empty! for {$this->id}";}
 		foreach ($keywordModels as $value) {
-
 			$keywords[] = $value->name;
 		}
-		return implode(", ", $keywords);
+		$output = implode(", ", $keywords);
+		return $output;
 	}
 
 	public function allAuthorsString(){

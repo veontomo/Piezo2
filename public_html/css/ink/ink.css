@@ -4,9 +4,9 @@ span.required{
 #content article{
     margin: 1em;
     padding: 1em;
-    -webkit-box-shadow: 0.1em 0.1em 1em 0 #ccc;
-        box-shadow: 0.1em 0.1em 1em 0 #ccc;
-    border-radius: 0.2em;
+    -webkit-box-shadow: 0.1em 0.05em 0.5em 0 #ccc;
+        box-shadow: 0.1em 0.05em 0.5em 0 #ccc;
+    border-radius: 0.5em;
 
 
 }
@@ -7529,3 +7529,19 @@ figcaption.dark {
 .delete_author{
 	display: inline;
 }
+
+.capitalize{
+	font-variant:small-caps;
+}
+.errorMessage{
+	color: red;
+}
+
+#contact-form{
+	padding-left: 1em;
+}
+.row label{
+	width: 5em;
+	display: inline-block;
+}
+

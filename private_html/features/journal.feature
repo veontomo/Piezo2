@@ -19,9 +19,9 @@ Background: I am logged in
 
     Scenario: adding a journal already present in the DB
         Given the following journals are present:
-        | name          | link                      | description           |
-        | Murzilka      | http://www.murz.com       | advanced child journal| 
-        | Nature        | www nature com            | nice journal          |
+	        | name          | link                      | description           |
+	        | Murzilka      | http://www.murz.com       | advanced child journal| 
+	        | Nature        | www nature com            | nice journal          |
         Given I am on "?r=journals/create"
         When I fill in "Journals[name]" with "Murzilka"
         And I fill in "Journals[url]" with "www.journal.com"
@@ -39,13 +39,12 @@ Background: I am logged in
         | Murzilka      | www.murz.com              | advanced child journal|
         Given I am on edit page for journal "Gazzetta"
         Then I should see "Update Gazzetta"
-        And I should see "sport news"
-        And I should see "1qazxsw2"
-        And I should see "2wsxcde3"
-        And I should see "http://www.gazzetta.com"
-#        When I fill in "Journals[name]" with "New Nature"
-#        And I fill in "Journals[url]" with "www.newnature.com"
-#        And I fill in "Journals[description]" with "this is a new Nature"
- #       And I press "Update"
- #       Then I should see the following: "New Nature, www.newnature.com, this is a new Nature"
+        And the "Journals_description" field should contain "sport news"
+        And the "Journals_url" field should contain "http://www.gazzetta.com"
+        When I fill in "Journals[name]" with "Gazzetta2"
+        And I fill in "Journals[url]" with "http://www.gazzetta2.com"
+        And I fill in "Journals[description]" with "this is a new gazzetta"
+        And I press "Update"
+        Then I should see the following: "Gazzetta2, http://www.gazzetta2.com, this is a new gazzetta"
+        And I should not see "Gazzetta, http://www.gazzetta.com, sport news"
         

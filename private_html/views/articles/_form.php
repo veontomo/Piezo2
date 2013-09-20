@@ -54,6 +54,15 @@
 	</div>
 
 	<div class="control-group">
+		<?php echo $form->labelEx($model,'volume'); ?>
+		<br />
+		<?php echo $form->textField($model,'volume'); ?>
+		<div class="control">
+			<?php echo $form->error($model,'volume'); ?>
+		</div>
+	</div>
+
+	<div class="control-group">
 		<?php echo $form->labelEx($model,'page'); ?>
 		<br />
 		<?php echo $form->textField($model,'page',array('size'=>8,'maxlength'=>8)); ?>

@@ -29,23 +29,21 @@ $this->menu=array(
             'type'=>'raw',
             'value'=>CHtml::link($model->title, $model->url)
         ),
-		'abstract',
-		'year',
-		'page',
-		array(               
-            'label'=>'Journal',
-            'type'=>'raw',
-            'value'=>CHtml::encode($model->journal0->name)
-        ),
-		array(               
-            'label'=>'Keywords',
-            'type'=>'raw',
-            'value'=>CHtml::encode($model->allKeywordsString()),
-        ),
 		array(               
             'label'=>'Authors',
             'type'=>'raw',
             'value'=>CHtml::encode($model->allAuthorsString()),
+        ),
+		array(               
+            'label'=>'Journal',
+            'type'=>'raw',
+            'value'=>CHtml::encode($model->journal0->name . ', ' . $model->volume . ', ' . $model->year. ', p.' . $model->page)
+        ),
+		'abstract',
+		array(               
+            'label'=>'Keywords',
+            'type'=>'raw',
+            'value'=>CHtml::encode($model->allKeywordsString()),
         ),
 	),
 )); ?>
