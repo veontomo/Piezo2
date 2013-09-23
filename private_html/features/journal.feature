@@ -30,6 +30,19 @@ Background: I am logged in
         Then I should see "Please fix the following input errors:"
         Then I should see the following: "Name, has already been taken"
 
+    @javascript
+    Scenario: deleting a journal
+	    Given the following journals are present:
+		     | name          | link                      | description           |
+		     | Gazzetta      | http://www.gazzetta.com   | sport news            |
+		     | Murzilka      | www.murz.com              | advanced child journal|
+		Given I am on "?r=site/"
+		Given I am on view page for journal "Murzilka"
+		Then I should see "Remove Murzilka"
+		Then I follow "Remove Murzilka"
+		Then I confirm deleting
+		Given I am on "?r=journals/index"
+		Then I should not see the following: "Murzilka, www.murz.com, advanced child journal"
 
 
     Scenario: editing journal
@@ -56,7 +69,9 @@ Background: I am logged in
 		Given I am on "?r=journals/index"
 		Then I should see "Manage Journals"
 		And I follow "Manage Journals"
+		"""
 		Then I should not see the following: "Error, not authorized"
 		Then I should see the following: "Gazzetta, Murzilka"
+		"""
 
 

@@ -67,6 +67,8 @@ class FeatureContext extends BehatContext
         foreach ($models as $item) {
             $item->delete();
         }
+
+		
         
     }
 
@@ -186,12 +188,27 @@ class FeatureContext extends BehatContext
     {
         $journal = Journals::model()->find("name=:name", array(":name" => $journalName));
         if($journal){
-            echo $journalName, " has id ", $journal->id, PHP_EOL;
+            //echo $journalName, " has id ", $journal->id, PHP_EOL;
             return new When('I am on "?r=journals/update&id='.$journal->id.'"');
         }else{
             echo $journalName, " not found", PHP_EOL;
             return false;
         }
+    }
+
+    /**
+     * @Given /^I am on view page for journal "([^"]*)"$/
+     */
+    public function iAmOnViewPageForJournal($journalName)
+    {
+		$journal = Journals::model()->find("name=:name", array(":name" => $journalName));
+		if($journal){
+			//echo $journalName, " has id ", $journal->id, PHP_EOL;
+			return new When('I am on "?r=journals/view&id='.$journal->id.'"');
+		}else{
+			echo $journalName, " not found", PHP_EOL;
+			return false;
+		}
     }
 
     /**
@@ -207,6 +224,14 @@ class FeatureContext extends BehatContext
             echo $articleTitle, " not found!!!", PHP_EOL;
             return false;
         }
+    }
+
+    /**
+     * @When /^I am on view page for journals$/
+     */
+    public function iAmOnViewPageForJournals()
+    {
+        return new When('I am on "?r=journals/index');
     }
 
     /**
@@ -377,6 +402,15 @@ class FeatureContext extends BehatContext
 
         $element->click();
 
+    }
+
+        /**
+     * @Given /^I confirm deleting$/
+     */
+    public function iConfirmDeleting()
+    {
+    	$this->getSession()->start();
+        $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     }
 
 }
