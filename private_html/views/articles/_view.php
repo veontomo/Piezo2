@@ -6,7 +6,7 @@
 <article>
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::link($data->title, $data->url, array('class' => 'capitalize')); ?>
+	<?php echo CHtml::link(ucwords(strtolower($data->title)), $data->url, array('class' => 'capitalize')); ?>
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('authors')); ?>:</b>
