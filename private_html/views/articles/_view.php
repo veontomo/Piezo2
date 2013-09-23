@@ -27,10 +27,11 @@
 	<?php echo CHtml::encode($data->allKeywordsString()); ?>
 	<br />
 
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('abstract')); ?>:</b>
-	<?php echo CHtml::encode($data->abstract); ?>
-	<br />
+	<div class="justify">
+		<b><?php echo CHtml::encode($data->getAttributeLabel('abstract')); ?>:</b>
+		<?php echo CHtml::encode($data->abstract); ?>
+	</div>
+		<br />
 
 
 	<?php echo CHtml::link(CHtml::encode("Details"), array('view', 'id'=>$data->id)); ?>

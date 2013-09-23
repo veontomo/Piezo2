@@ -7545,3 +7545,7 @@ figcaption.dark {
 	display: inline-block;
 }
 
+
+.justify{
+  text-align: justify;
+}
