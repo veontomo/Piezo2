@@ -34,9 +34,9 @@ Background: I am logged in
 
     Scenario: editing journal
         Given the following journals are present:
-        | name          | link                      | description           |
-        | Gazzetta      | http://www.gazzetta.com   | sport news            | 
-        | Murzilka      | www.murz.com              | advanced child journal|
+	        | name          | link                      | description           |
+	        | Gazzetta      | http://www.gazzetta.com   | sport news            | 
+	        | Murzilka      | www.murz.com              | advanced child journal|
         Given I am on edit page for journal "Gazzetta"
         Then I should see "Update Gazzetta"
         And the "Journals_description" field should contain "sport news"
@@ -48,3 +48,15 @@ Background: I am logged in
         Then I should see the following: "Gazzetta2, http://www.gazzetta2.com, this is a new gazzetta"
         And I should not see "Gazzetta, http://www.gazzetta.com, sport news"
         
+     Scenario: managing journals
+	    Given the following journals are present:
+		     | name          | link                      | description           |
+		     | Gazzetta      | http://www.gazzetta.com   | sport news            |
+		     | Murzilka      | www.murz.com              | advanced child journal|
+		Given I am on "?r=journals/index"
+		Then I should see "Manage Journals"
+		And I follow "Manage Journals"
+		Then I should not see the following: "Error, not authorized"
+		Then I should see the following: "Gazzetta, Murzilka"
+
+
