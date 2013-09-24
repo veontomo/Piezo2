@@ -5,13 +5,14 @@ Feature: adding and editing article info
 
  Background: I am logged in
     Given the following journals are present:
-    | name          | link              | description           |
-    | Murzilka      | www.murz.com      | advanced child journal| 
-    | Phys. Lett    | www.elsevire.com  | expensive journal     |
+        | name          | link              | description           |
+        | Murzilka      | www.murz.com      | advanced child journal| 
+        | Phys. Lett    | www.elsevire.com  | expensive journal     |
     Given the following users exist:
-    | login     | pswd |
-    | test_user | test |
+        | login         | pswd |
+        | test_user     | test |
     Given I am logged in as "test_user" with password "test"
+
 
 Scenario: adding article keywords, no javascript used
     Given I am on "?r=articles/create"
@@ -27,7 +28,7 @@ Scenario: adding article keywords, no javascript used
     And I press "Add"
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, volume d6"
 
-"""
+
 @javascript
 Scenario: adding article without keywords
     Given I am on "?r=articles/create"
@@ -44,7 +45,6 @@ Scenario: adding article without keywords
     And I fill in "Authors[1][surname]" with "Mendeleev"
     And I press "Add"
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, Dimitri Mendeleev"
-
 
 Scenario: inserting article along with keywords
     Given I am on "?r=articles/create"
@@ -98,4 +98,3 @@ Scenario: deleting existing article
     When I follow "Delete Article"
     And I wait for 5 seconds
     Then article entitled "Happy NY" should not be present
-"""

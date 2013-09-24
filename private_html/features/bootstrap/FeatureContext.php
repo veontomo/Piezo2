@@ -126,11 +126,12 @@ class FeatureContext extends BehatContext
      */
     public function theFollowingJournalsArePresent(TableNode $journalsTable)
     {
+        echo "Adding journals", PHP_EOL;
+        $before =  count(Journals::model()->findAll());
         $journals = $journalsTable->getHash();
         foreach ($journals as $key => $journal) {
             $j = Journals::model()->find('name=:name', array(':name' => $journal['name']));
             if($j){
-                echo 'updating Journal ', $journal['name'], ' info.',  PHP_EOL;
                 $j->url = $journal['link'];
                 $j->description = $journal['description'];
             }else{
@@ -138,11 +139,11 @@ class FeatureContext extends BehatContext
                 $j->name = $journal["name"];
                 $j->url = $journal["link"];
                 $j->description = $journal["description"];  
-                echo 'creating new Journal ', $j->name, PHP_EOL;              
             }
-            echo $j->save() ? 'Journal info is saved' : 'Journal remains unsaved';
-            echo PHP_EOL;
+            $j->save();
         }
+        $end =  count(Journals::model()->findAll());
+        echo $end - $before, " articles are added.", PHP_EOL;
     }
 
     /**
@@ -188,7 +189,6 @@ class FeatureContext extends BehatContext
     {
         $journal = Journals::model()->find("name=:name", array(":name" => $journalName));
         if($journal){
-            //echo $journalName, " has id ", $journal->id, PHP_EOL;
             return new When('I am on "?r=journals/update&id='.$journal->id.'"');
         }else{
             echo $journalName, " not found", PHP_EOL;
@@ -203,7 +203,6 @@ class FeatureContext extends BehatContext
     {
 		$journal = Journals::model()->find("name=:name", array(":name" => $journalName));
 		if($journal){
-			//echo $journalName, " has id ", $journal->id, PHP_EOL;
 			return new When('I am on "?r=journals/view&id='.$journal->id.'"');
 		}else{
 			echo $journalName, " not found", PHP_EOL;
@@ -218,7 +217,6 @@ class FeatureContext extends BehatContext
     {
         $article = Articles::model()->find('title=:title', array(':title' => $articleTitle));
         if($article){
-            echo $articleTitle, " has id ", $article->id, PHP_EOL;
             return new When('I am on "?r=articles/update&id='.$article->id.'"');
         }else{
             echo $articleTitle, " not found!!!", PHP_EOL;
@@ -284,7 +282,6 @@ class FeatureContext extends BehatContext
     public function iAmOnTheViewPageOfTheArticleEntitled($articleName){
         $article = Articles::model()->find("title=:name", array(":name" => $articleName));
         if($article){
-            echo 'article has id ', $article->id, PHP_EOL;
             return new When('I am on "?r=articles/view&id='.$article->id.'"');
         }else{
             echo 'article entitled ', $articleName, ' not found', PHP_EOL;
@@ -404,13 +401,36 @@ class FeatureContext extends BehatContext
 
     }
 
-        /**
-     * @Given /^I confirm deleting$/
-     */
+    /**
+    * @Given /^I confirm deleting$/
+    */
     public function iConfirmDeleting()
     {
     	$this->getSession()->start();
         $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+    }
+
+    /**
+     * @Given /^the following articles have been written by authors:$/
+     */
+    public function theFollowingArticlesHaveBeenWrittenByAuthors(TableNode $table)
+    {
+        $collection = $table->getHash();
+        foreach ($collection as $item) {
+            $title = trim($item['title']);
+            $article = Articles::model()->find('title=:title', array(':title' => $title));
+            $surnames = explode(',' ,$item['surnames']);
+            foreach($surnames as $surname){
+                if($author = Authors::model()->find_or_create_by_name_and_surname(
+                    array('surname' => $surname, 'name' => ""))) {
+                    $article->bindAuthor($author);                    
+                }else{
+                    echo "error occurred when dealing with author $surname", PHP_EOL;
+                }
+
+
+            }
+        }
     }
 
 }

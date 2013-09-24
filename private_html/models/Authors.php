@@ -110,4 +110,20 @@ class Authors extends CActiveRecord
 		}
 		return $authorModel;
 	}
+
+	/** 
+	*	Retrieves articles associated with the author
+	*/
+	public function articles(){
+		$articles = array();
+		$articles_authors = ArticlesAuthors::model()->findAll('author_id = :author_id', 
+			array(':author_id' => $this->id));
+		foreach($articles_authors as $record){
+			$article = Articles::model()->findByPk($record['article_id']);
+			if($article){
+				$articles[] = $article;
+			}
+		}
+		return $articles;
+	}
 }

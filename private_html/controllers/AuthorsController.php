@@ -51,8 +51,9 @@ class AuthorsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$article = $this->loadModel($id);
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $article,
 		));
 	}
 
