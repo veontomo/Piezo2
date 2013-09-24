@@ -126,4 +126,15 @@ class Authors extends CActiveRecord
 		}
 		return $articles;
 	}
+	/** 
+	*	Produces a string with article titles associated with the author
+	*/
+	public function articlesString(){
+		$articles = $this->articles();
+		$output = array();
+		foreach ($articles as $article) {
+			$output[] = $article['title'];
+		}
+		return implode(', ', $output);
+	}
 }

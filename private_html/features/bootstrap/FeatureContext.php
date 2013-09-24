@@ -223,6 +223,36 @@ class FeatureContext extends BehatContext
             return false;
         }
     }
+    /**
+     * @When /^I am on view page for article entitled "([^"]*)"$/
+     */
+    public function iAmOnViewPageForArticleEntitled($articleTitle)
+    {
+        $article = Articles::model()->find('title=:title', array(':title' => $articleTitle));
+        if($article){
+            return new When('I am on "?r=articles/view&id='.$article->id.'"');
+        }else{
+            echo $articleTitle, " not found", PHP_EOL;
+            return false;
+        }
+    }
+
+ 
+
+    /**
+     * @When /^I am on view page for author "([^"]*)" "([^"]*)"$/
+     */
+    public function iAmOnViewPageForAuthorWithSurname($name, $surname)
+    {
+        $author = Authors::model()->find('name=:name AND surname=:surname', 
+            array(':name' => $name, ':surname' => $surname));
+        if($author){
+            return new When('I am on "?r=authors/view&id='.$author->id.'"');
+        }else{
+            echo "author with name $name and surname $surname is not found", PHP_EOL;
+            return false;
+        }
+    }
 
     /**
      * @When /^I am on view page for journals$/

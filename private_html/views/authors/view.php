@@ -24,5 +24,9 @@ $this->menu=array(
 		'name',
 		'surname',
 		'description',
+		array(
+			'label' => "Articles",
+			'type' => 'raw',
+			'value' => $model->articlesString()),
 	),
 )); ?>
