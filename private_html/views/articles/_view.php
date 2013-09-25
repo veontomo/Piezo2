@@ -10,7 +10,7 @@
 	<br />
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('authors')); ?>:</b>
-	<?php echo CHtml::encode($data->allAuthorsString()); ?>
+	<?php echo $data->allAuthorsString(); ?>
 	<br />
 
 	

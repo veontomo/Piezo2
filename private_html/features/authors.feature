@@ -24,3 +24,5 @@ Scenario: viewing all articles by a given author
 	    | Piezo			| Green, Frank				|  
 	 When I am on view page for author "" "Frank"
 	 Then I should see the following: "Piezo, Happy NY"
+	 And I should not see the following: "Black hole"
+	# Then print last response

@@ -32,7 +32,7 @@ $this->menu=array(
 		array(               
             'label'=>'Authors',
             'type'=>'raw',
-            'value'=>CHtml::encode($model->allAuthorsString()),
+            'value'=>$model->allAuthorsString(),
         ),
 		array(               
             'label'=>'Journal',

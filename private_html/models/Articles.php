@@ -155,7 +155,7 @@ class Articles extends ManyManyActiveRecord{
 		$authors = array();
 		foreach ($authorsModels as $value) {
 
-			$authors[] = $value->name . ' ' . $value->surname;
+			$authors[] = CHtml::link($value->name . ' ' . $value->surname, array('authors/view', 'id' => $value->id));
 		}
 		return implode(", ", $authors);
 	}

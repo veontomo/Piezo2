@@ -133,8 +133,8 @@ class Authors extends CActiveRecord
 		$articles = $this->articles();
 		$output = array();
 		foreach ($articles as $article) {
-			$output[] = $article['title'];
+			$output[] = CHtml::link($article['title'], array('articles/view', 'id' => $article->id));
 		}
-		return implode(', ', $output);
+		return implode('<br />', $output);
 	}
 }
