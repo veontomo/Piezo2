@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Authors'=>array('index'),
-	$model->name,
+	$model->name . " " . $model->surname,
 );
 
 $this->menu=array(
