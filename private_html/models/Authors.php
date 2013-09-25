@@ -126,6 +126,7 @@ class Authors extends CActiveRecord
 		}
 		return $articles;
 	}
+	
 	/** 
 	*	Produces a string with article titles associated with the author
 	*/

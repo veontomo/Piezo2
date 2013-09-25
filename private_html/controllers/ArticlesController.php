@@ -20,6 +20,13 @@ class ArticlesController extends Controller
 		);
 	}
 
+	public function beforeAction($a){
+		if(!Yii::app()->user->isGuest)  {
+			$this->layout = '//layouts/column2';
+		}
+		return parent::beforeAction($a);
+	}
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -52,9 +59,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$model = $this->loadModel($id);
 		// $keywords = $model ? $model->keywordsArray() : array();
 		$this->render('view', array(
@@ -68,9 +72,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$model = new Articles;
 		$keyword = new Keywords;
 		$authors = array(new Authors);
@@ -110,9 +111,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$model=$this->loadModel($id);
 		$keyword = new Keywords;
 		$keyword->name = $model->allKeywordsString();
@@ -155,9 +153,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$model = $this->loadModel($id);
 		$model->unbindAllAuthors();
 		$keywords = $model->keywords();
@@ -176,9 +171,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$dataProvider=new CActiveDataProvider('Articles');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -190,9 +182,6 @@ class ArticlesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		if(!Yii::app()->user->isGuest)  {
-			$this->layout = '//layouts/column2';
-		}
 		$model=new Articles('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Articles']))

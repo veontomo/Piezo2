@@ -13,9 +13,10 @@ Feature: adding and editing article info
         | test_user     | test |
     Given I am logged in as "test_user" with password "test"
 
-
+@javascript
 Scenario: adding article keywords, no javascript used
     Given I am on "?r=articles/create"
+    Then I wait for 1000 seconds
     When I fill in "Articles[title]" with "About all properties"
     And I fill in "Articles[abstract]" with "Oho-ho-ho"
     And I fill in "Articles[url]" with "www.oho-ho.com"
@@ -28,7 +29,7 @@ Scenario: adding article keywords, no javascript used
     And I press "Add"
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, volume d6"
 
-
+"""
 @javascript
 Scenario: adding article without keywords
     Given I am on "?r=articles/create"
@@ -98,3 +99,4 @@ Scenario: deleting existing article
     When I follow "Delete Article"
     And I wait for 5 seconds
     Then article entitled "Happy NY" should not be present
+"""

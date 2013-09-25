@@ -121,6 +121,8 @@ class FeatureContext extends BehatContext
             );     
     }
 
+   
+
     /**
      * @Given /^the following journals are present:$/
      */
