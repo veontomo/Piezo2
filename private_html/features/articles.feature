@@ -13,10 +13,8 @@ Feature: adding and editing article info
         | test_user     | test |
     Given I am logged in as "test_user" with password "test"
 
-@javascript
 Scenario: adding article keywords, no javascript used
     Given I am on "?r=articles/create"
-    Then I wait for 1000 seconds
     When I fill in "Articles[title]" with "About all properties"
     And I fill in "Articles[abstract]" with "Oho-ho-ho"
     And I fill in "Articles[url]" with "www.oho-ho.com"
@@ -29,10 +27,11 @@ Scenario: adding article keywords, no javascript used
     And I press "Add"
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, volume d6"
 
-"""
 @javascript
 Scenario: adding article without keywords
+    Then I wait for 2 seconds
     Given I am on "?r=articles/create"
+    Then I wait for 2 seconds
     When I fill in "Articles[title]" with "About all properties"
     And I fill in "Articles[abstract]" with "Oho-ho-ho"
     And I fill in "Articles[url]" with "www.oho-ho.com"
@@ -45,6 +44,7 @@ Scenario: adding article without keywords
     And I fill in "Authors[1][name]" with "Dimitri"
     And I fill in "Authors[1][surname]" with "Mendeleev"
     And I press "Add"
+    Then I wait for 2 seconds
     Then I should see the following: "About all properties, Oho-ho-ho, 112, 1987, Murzilka, M Galvani, Dimitri Mendeleev"
 
 Scenario: inserting article along with keywords
@@ -88,15 +88,22 @@ Scenario: editing existing article
     Then I should see the following: "Edited Article, updated abstract, 101, Phys. Lett, 1999, new keyword 1, new keyword 2, k3, Edward Rokki"
     And I should not see the following: "Happy NY, k1, k2, John, Frank"
 
-@javascript
+
+@javascript @current
 Scenario: deleting existing article
+    Then I wait for 2 seconds
     Given the following articles are present:
     | title      | abstract      | url               | page  | year | journal    |
     | Happy NY   | NY tree       | www.HappyNY.com   | 102   | 1999 | Murzilka   | 
     | Black hole | event horizon | www.plb.com       | 2     | 2005 | Phys. Lett |
+    Then I wait for 2 seconds
     Given the article entitled "Happy NY" has the following keywords: "k1, k2, k3"
     Given I am on the view page of the article entitled "Happy NY"
+    Then I wait for jquery to load
+    And I wait for 10 seconds
+    # Then print last response
+    Then I wait for "Delete Article" to appear
     When I follow "Delete Article"
-    And I wait for 5 seconds
+    Then I confirm the popup
+    Then I wait for 2 seconds
     Then article entitled "Happy NY" should not be present
-"""

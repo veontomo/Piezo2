@@ -27,7 +27,6 @@ use Behat\Behat\Context\Step\Then,
  */
 class FeatureContext extends BehatContext
 {
-
     use MinkDictionary;
     /**
      * Initializes context.
@@ -68,7 +67,12 @@ class FeatureContext extends BehatContext
             $item->delete();
         }
 
-		
+	    // $driver = new \Behat\Mink\Driver\Selenium2Driver('firefox', 'base_url');
+     //    // init session:
+     //    $session = new \Behat\Mink\Session($driver);
+
+     //    // start session:
+     //    $session->start();
         
     }
 
@@ -328,7 +332,8 @@ class FeatureContext extends BehatContext
     public function articleEntitledShouldNotBePresent($arg1)
     {
         $articles = Articles::model()->findAll('title = :name', array(':name' => trim($arg1)));
-        if($articles){
+        if(count($articles)>0){
+            echo "found ", count($articles), " articles entitles $arg1", PHP_EOL;
            throw new Exception("Article entitled \"$arg1\" is still present", 1);
         }else{
             return true;
@@ -463,6 +468,13 @@ class FeatureContext extends BehatContext
 
             }
         }
+    }
+    /**
+     * @Then /^I wait for "([^"]*)" to appear$/
+     */
+    public function iWaitForToAppear2($arg1)
+    {
+       $this->getSession()->wait(5000, "$('body').text().contains('Delete Article')");
     }
 
 }
