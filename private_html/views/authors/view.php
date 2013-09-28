@@ -21,12 +21,11 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'name',
-		'surname',
 		'description',
 		array(
 			'label' => "Articles",
 			'type' => 'raw',
-			'value' => $model->articlesString()),
+			'value' => '<div class="capitalize">'.strtolower($model->articlesString()).'</div>'
+			)
 	),
 )); ?>
